@@ -1,12 +1,12 @@
-<ion-header mode="ios">
-  <ion-toolbar mode="ios">
-    <ion-buttons mode="ios" slot="start">
+<ion-header >
+  <ion-toolbar >
+    <ion-buttons  slot="start">
       <ion-button color="medium" [appGoTo]="'close'">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>登录</ion-title>
-    <ion-buttons mode="ios" slot="end">
+    <ion-buttons  slot="end">
       <ion-button color="medium" [appGoTo]="'home'">
         <ion-icon size="small" slot="icon-only" name="home"></ion-icon>
       </ion-button>
@@ -20,14 +20,14 @@
   </div>
 
   <ion-list lines='none' mode='ios' class="login-box">
-    <ion-item mode="ios">
+    <ion-item >
       <ion-label slot="start" style="margin-right: 1rem;" color="medium">
         <ion-icon name="person"></ion-icon>
       </ion-label>
       <ion-input autocomplete="off" type="text" debounce="300" placeholder="请输入会员名/手机号" mode='ios'></ion-input>
     </ion-item>
 
-    <ion-item mode="ios">
+    <ion-item >
       <ion-label slot="start" style="margin-right: 1rem;" color="medium">
         <ion-icon name="lock"></ion-icon>
       </ion-label>
@@ -36,7 +36,7 @@
 
     <ion-button class="login" color="danger" expand="full" (click)="presentToast()">登录</ion-button>
 
-    <ion-item mode="ios" lines='none' class="item-last">
+    <ion-item  lines='none' class="item-last">
       <ion-button slot="start" color="dark" fill="clear">关于我们</ion-button>
       <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/quicklogin'">快速登录</ion-button>
       <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/register'">注册</ion-button>

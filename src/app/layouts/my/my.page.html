@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-list mode="ios">
-    <ion-item mode="ios" [href]="item.link" class="my-list" *ngFor="let item of myList" lines="inset">
+  <ion-list >
+    <ion-item  [href]="item.link" class="my-list" *ngFor="let item of myList" lines="inset">
       <ion-thumbnail slot="start" class="my-list-img">
         <img [src]="item.img" />
       </ion-thumbnail>

@@ -30,7 +30,10 @@ import { SharedModule } from './shared';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      backButtonText: '返回',
+      mode: 'ios'
+    }),
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
