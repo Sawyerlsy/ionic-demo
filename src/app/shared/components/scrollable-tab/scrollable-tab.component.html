@@ -5,7 +5,7 @@
   >
     <a
       [ngStyle]="{ color: i === selectedIndex ? titleActiveColor : titleColor }"
-      (tap)="handleSelection(i)"
+      (click)="handleSelection(i)"
     >
       {{ menu.title }}
     </a>

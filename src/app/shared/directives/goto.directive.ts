@@ -11,8 +11,8 @@ export class GoToDirective {
 
   constructor(private navController: NavController) { }
 
-  @HostListener('tap', ['$event.target'])
-  handleTap(ev) {
+  @HostListener('click', ['$event.target'])
+  handleClick(ev) {
     switch (this.appGoTo) {
       case 'home':
         this.navController.navigateRoot(['']);

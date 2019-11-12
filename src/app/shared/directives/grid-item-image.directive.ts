@@ -18,8 +18,8 @@ export class GridItemImageDirective implements OnInit {
   private setStyle(styleName: string, styleValue: string | number) {
     this.renderer.setStyle(this.elr.nativeElement, styleName, styleValue);
   }
-  @HostListener('tap', ['$event.target'])
-  handleTap(ev) {
+  @HostListener('click', ['$event.target'])
+  handleClick(ev) {
     console.log(ev);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 
 
 export interface SelfInfo {
@@ -16,7 +17,7 @@ export class MyPage implements OnInit {
 
   myList: SelfInfo[];
 
-  constructor() { }
+  constructor(public alertController: AlertController) { }
 
   ngOnInit() {
     this.myList = [
@@ -53,6 +54,17 @@ export class MyPage implements OnInit {
         name: '关于APP',
         link: 'versions'
       }];
+  }
+
+
+  async doPress() {
+    const alert = await this.alertController.create({
+      header: '提示',
+      message: '长按事件测试',
+      buttons: ['确定'],
+      backdropDismiss: false
+    });
+    await alert.present();
   }
 
 }

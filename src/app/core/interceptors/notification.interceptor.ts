@@ -1,11 +1,5 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpResponse
-} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
