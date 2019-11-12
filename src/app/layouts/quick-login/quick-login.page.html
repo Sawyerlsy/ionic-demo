@@ -1,0 +1,40 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons mode="ios" slot="start">
+      <ion-button size="small" color="medium" [appGoTo]="'back'">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>登录</ion-title>
+    <ion-buttons mode="ios" slot="end">
+      <ion-button color="medium" [appGoTo]="'home'">
+        <ion-icon size="small" slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="login-content">
+  <div>
+    <ion-img class="login-logo" src="assets/avatars/avatar005.png"></ion-img>
+  </div>
+
+  <ion-list lines='none' mode='ios' class="login-box">
+    <ion-item mode="ios">
+      <ion-label slot="start" style="margin-right: 1rem;" color="dark">
+        +86
+      </ion-label>
+      <ion-input autocomplete="off" type="text" debounce="300" placeholder="手机号" mode='ios'></ion-input>
+    </ion-item>
+
+    <ion-item-group mode="ios">
+      <ion-item mode="ios" slot="start">
+        <ion-input autocomplete="off" type='password' debounce="300" placeholder="验证码" mode='ios'></ion-input>
+      </ion-item>
+      <ion-button style="height: 44px;" slot="end" color="danger" expand="full">发送验证码</ion-button>
+    </ion-item-group>
+
+    <ion-button mode="ios" color="danger" expand="full" class="submit">快速登录</ion-button>
+  </ion-list>
+</ion-content>

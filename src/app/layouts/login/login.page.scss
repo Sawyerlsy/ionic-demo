@@ -1,0 +1,66 @@
+:host {
+    // transform: translateY(-100%);
+}
+
+.login-header {
+    padding: 3px 0px;
+}
+
+.login-header-box {
+    display: grid;
+    grid-template-columns: 2.5rem auto 2.5rem;
+    grid-template-rows: 43px;
+    justify-items: center;
+    align-items: center;
+    color: #000;
+    background: #fff;
+
+    .login-close {
+        --background: transparent;
+        font-size: 1.8rem;
+        overflow: hidden;
+    }
+
+    .go-home {
+        --background: transparent;
+        overflow: hidden;
+        font-size: 1.25rem;
+    }
+
+    .login-title {
+        font-size: 1.1rem;
+    }
+}
+
+.login-content {
+    --background: #f5f5f5;
+
+    .login-logo {
+        width: 200px;
+        height: 60px;
+        margin: 35px auto;
+    }
+
+    .login-box {
+        background: transparent;
+        padding: 0 1.2rem;
+
+        ion-item {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .item-last {
+            --background: transparent;
+            --color: #000;
+
+            ion-label:nth-last-of-type(2) {
+                min-width: 80px;
+            }
+        }
+
+        ion-button.login {
+            margin-top: 1.6rem;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-buttons mode="ios" slot="start">
+      <ion-button color="dark" [appGoTo]="'scan'">
+        <ion-icon slot="icon-only" name="qr-scanner"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar mode="ios" class="top-search" placeholder="搜索" (click)="gotoSearch()"></ion-searchbar>
+    <ion-buttons mode="ios" slot="end">
+      <ion-button color="dark">
+        <ion-icon size="small" slot="icon-only" name="share-alt"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<app-scrollable-tab [menus]="topMenus$ | async" [backgroundColor]="'#fff'" [indicatorColor]="'red'"
+  [titleColor]="'#3f3f3f'" [titleActiveColor]="'red'" [selectedTabLink]="selectedTabLink"
+  (tabSelected)="handleTabSelected($event)"></app-scrollable-tab>
+
+<ion-content>
+
+  <ion-slides pager="false" scrollbar="false" [options]="homeTabSliderOption" #homeTab>
+    <ion-slide *ngFor="let menu of (topMenus$ | async)">
+      <ion-text color="primary">
+        {{ menu.title }}
+      </ion-text>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>

@@ -1,0 +1,39 @@
+.login-content {
+    --background: #f5f5f5;
+
+    .login-logo {
+        width: 200px;
+        height: 60px;
+        margin: 35px auto;
+    }
+
+    .login-box {
+        background: transparent;
+        padding: 0 1.2rem;
+
+        ion-item {
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .item-last {
+            --background: transparent;
+            margin-top: 0.6rem;
+            --color: #000;
+
+            ion-label:nth-last-of-type(2) {
+                min-width: 80px;
+            }
+        }
+
+        ion-button.submit {
+            margin-top: 1rem;
+        }
+    }
+
+    ion-item-group {
+        display: grid;
+        grid-template-columns: 47% 48%;
+        column-gap: 5%;
+    }
+}

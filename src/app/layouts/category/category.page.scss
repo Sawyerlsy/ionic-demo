@@ -1,0 +1,93 @@
+.category-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 100%;
+    overflow: hidden;
+
+    $leftContainerWidth: 7rem;
+    $rightContainerWidth: calc(100% - #{$leftContainerWidth});
+
+    .left-container {
+        $leftContainerBgColor: #fdfdfd;
+        width: $leftContainerWidth;
+        background: $leftContainerBgColor;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        border-right: 1px solid #f7f7f7;
+
+        .category-list {
+            background: $leftContainerBgColor;
+
+            ion-item {
+                text-align: center;
+                --background: $leftContainerBgColor;
+                --border-color: red;
+                --padding-end: 10px;
+                // --padding-start: 10px;
+            }
+
+            ion-item.selected {
+                --background: #fff;
+            }
+
+            ion-label {
+                font-size: 0.9rem;
+            }
+
+        }
+    }
+
+    .right-container {
+        width: $rightContainerWidth;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+
+
+        .category-detail-header {
+            background: #efefef;
+            font-size: 0.9rem;
+            text-align: left;
+            display: block;
+            padding-left: 10px;
+            height: 27px;
+            line-height: 27px;
+        }
+
+        $itemWidth: 5rem;
+        $itemHeight: 5rem;
+
+        .category-detail-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, $itemWidth);
+            gap: 0.5rem 0.3rem;
+            grid-auto-flow: row dense;
+            justify-items: center;
+            align-items: center;
+            place-content: space-around space-evenly;
+            margin-bottom: 0.5rem * 1.2;
+        }
+
+
+        .item-img {
+            text-align: center;
+
+            img {
+                width: $itemWidth * 0.8;
+                height: $itemWidth * 0.8;
+            }
+        }
+
+        .item-label {
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: $itemWidth;
+        }
+    }
+}

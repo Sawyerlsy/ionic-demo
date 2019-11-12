@@ -1,0 +1,54 @@
+<ion-header mode="ios">
+  <ion-toolbar mode="ios">
+    <ion-title style="text-align:center">分类</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="category-container">
+    <div class="left-container">
+      <ion-list class="category-list" lines="none">
+        <ion-item>
+          <ion-label>居具</ion-label>
+        </ion-item>
+        <ion-item lines="inset" class="selected">
+          <ion-label>居家家具</ion-label>
+        </ion-item>
+        <ion-item *ngFor="let item of categoryDetailList ">
+          <ion-label>居家家具</ion-label>
+        </ion-item>
+
+
+      </ion-list>
+    </div>
+
+    <div class="right-container">
+      <div class="category-detail" lines="none">
+        <!-- <ion-list-header>
+            <ion-label>瓷砖</ion-label>
+          </ion-list-header> -->
+        <!-- <ion-item class="category-detail-item">
+            <ion-thumbnail class="item-img">
+              <ion-img [src]="imgSrc"></ion-img>
+            </ion-thumbnail>
+            <span class="item-label">是范德萨</span>
+          </ion-item> -->
+
+        <div class="category-detail-box" *ngFor="let item of categoryDetailList ">
+          <span class="category-detail-header">水电费是否</span>
+          <div class="category-detail-list">
+            <div class="category-detail-item" *ngFor="let item of categoryDetailList ">
+              <div class="item-img">
+                <img [src]="imgSrc" />
+              </div>
+              <div class="item-label"><span>是范德萨水电费胜多负少</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</ion-content>

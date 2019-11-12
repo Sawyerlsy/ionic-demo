@@ -1,0 +1,26 @@
+<ion-content>
+    <ion-slides pager="true" scrollbar="false" [options]="sliderOptions" (ionSlideTouchEnd)="ionSlideTouchEnd($event)"
+        #banner>
+        <ion-slide *ngFor="let slider of (imageSliders$ | async)">
+            <img [src]="slider.imgUrl" [alt]="slider.caption" />
+        </ion-slide>
+    </ion-slides>
+
+    <ng-container>
+        <app-horizontal-grid>
+            <span appGridItem *ngFor="let item of channels$ | async">
+                <img appGridItemImage="2rem" [src]="item.icon" alt="" />
+                <span appGridItemTitle="0.6rem" class="title">{{ item.title }}</span>
+            </span>
+        </app-horizontal-grid>
+    </ng-container>
+
+    <div class="ad-container" *ngIf="ad$ | async as ad">
+        <img [src]="ad.imageUrl" alt="" class="ad-image" />
+    </div>
+    <app-vertical-grid [itemWidth]="'20rem'" [itemHeight]="'2rem'">
+        <app-product-card *ngFor="let product of products$ | async" [product]="product"
+            [routerLink]="['/products', product.id]">
+        </app-product-card>
+    </app-vertical-grid>
+</ion-content>
