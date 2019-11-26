@@ -24,3 +24,169 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+html {
+    // font-size: 62.5%;
+}
+
+html body {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    /* font-size: 12px;
+    font-family: "Microsoft YaHei", "hiragino sans gb", "SimHei", "SimSun", Arial, Lucida Grande, Tahoma, sans-serif;
+    color: #333;
+    height: 100%; */
+}
+
+div,
+address,
+blockquote,
+iframe,
+ul,
+ol,
+dl,
+dt,
+dd,
+li,
+dl,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+table,
+caption,
+th,
+td,
+form,
+legend,
+fieldset,
+input,
+button,
+select,
+textarea,
+a,
+center,
+strong,
+b,
+i {
+    margin: 0;
+    padding: 0;
+}
+
+input,
+button {
+    outline: none;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    border-color: transparent !important;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+ul li,
+ol li {
+    vertical-align: bottom;
+    list-style-type: none;
+    zoom: 1;
+}
+
+img,
+fieldset {
+    border: 0 none;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:focus {
+    outline: none;
+}
+
+a img {
+    border: 0 none;
+}
+
+em,
+i,
+b {
+    font-style: normal;
+    font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+    font-size: 100%;
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.fix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0px;
+    height: 0px;
+    visibility: hidden;
+}
+
+.pos-abs {
+    position: absolute;
+}
+
+.pos-rel {
+    position: relative;
+}
+
+.pos-fix {
+    position: fixed;
+}
+
+.float-l {
+    float: left;
+}
+
+.float-r {
+    float: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}

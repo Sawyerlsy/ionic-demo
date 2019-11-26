@@ -38,7 +38,7 @@ export class HomePage implements OnInit {
   }
 
   handleTabSelected(topMenu: TopMenu) {
-    this.navController.navigateForward(['tabs', 'home', topMenu.link]);
+    this.navController.navigateForward(['tabs', 'home', topMenu.link], { animated: false });
   }
 
 
