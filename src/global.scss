@@ -190,3 +190,12 @@ table {
 .text-right {
     text-align: right;
 }
+
+
+.custom-loading {
+    --background: transparent;
+}
+
+.custom-toast {
+    --max-width: 50vw;
+}

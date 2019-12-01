@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 
 export interface SelfInfo {
@@ -17,7 +18,7 @@ export class MyPage implements OnInit {
 
   userinfo: any = {};
 
-  constructor(public alertController: AlertController) { }
+  constructor(public alertController: AlertController, private storage: Storage) { }
 
   async doPress() {
     const alert = await this.alertController.create({
@@ -33,7 +34,11 @@ export class MyPage implements OnInit {
   ngOnInit() {
 
     //监听注册 登录成功的事件
-    this.userinfo = [];
+    this.userinfo = null;
+    this.storage.set('user', { username: 'Sawyer', sex: 'mail' });
+    this.storage.get('user').then(val => {
+      console.log("get user:", val);
+    });
   }
 
 

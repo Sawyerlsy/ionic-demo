@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, NavController, ToastController } from '@ionic/angular';
-import { LoadingService } from '../../core/services/loading.service';
 import { slideToRight, slideToTop } from '../../shared/animations/animations';
 
 
@@ -24,7 +23,6 @@ export class LoginPage implements OnInit {
 
   constructor(
     private modalContrller: ModalController,
-    private loadingService: LoadingService,
     public toastController: ToastController,
     private router: Router,
     private route: ActivatedRoute,
@@ -43,7 +41,7 @@ export class LoginPage implements OnInit {
     /* this.modalContrller.dismiss({
       dismissed: true
     }); */
-    
+
     this.navCtrl.pop();
   }
 
@@ -79,24 +77,6 @@ export class LoginPage implements OnInit {
       position: 'top'
     });
     toast.present();
-  }
-
-  about() {
-    // this.close();
-    // this.router.navigate(['/register'], { replaceUrl: true });
-    // this.router.navigate(['/register']);
-    // this.navCtrl.navigateForward(['/register']);
-    this.navCtrl.back();
-    this.navCtrl.navigateForward(['/register']);
-    // this.modalContrller.create()
-  }
-
-  animationStarted(event: AnimationEvent) {
-    console.warn('Animation started: ', event);
-  }
-
-  animationDone(event: AnimationEvent) {
-    console.warn('Animation done: ', event);
   }
 
 }

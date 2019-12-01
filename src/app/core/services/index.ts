@@ -1,5 +1,4 @@
 export * from './authentication.service';
-export * from './loading.service';
 export * from './log.service';
 export * from './login-guard.service';
 export * from './product.service';

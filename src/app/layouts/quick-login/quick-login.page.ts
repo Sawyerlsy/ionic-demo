@@ -8,6 +8,8 @@ import { NavController } from '@ionic/angular';
 })
 export class QuickLoginPage implements OnInit {
 
+  telphone: string;
+
   constructor(private navCtrl: NavController) {
     console.log("QuickLoginPage...");
   }

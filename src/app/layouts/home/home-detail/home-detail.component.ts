@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { BaseUI } from 'src/app/core/BaseUI';
 import { RestService } from 'src/app/core/services/rest.service';
 import { Ad, Channel, ImageSlider, Product } from 'src/app/shared';
 
@@ -13,8 +14,11 @@ import { Ad, Channel, ImageSlider, Product } from 'src/app/shared';
   styleUrls: ['./home-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeDetailComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private service: RestService, ) { }
+export class HomeDetailComponent extends BaseUI implements OnInit {
+  constructor(private route: ActivatedRoute, private service: RestService,
+    public loadingController: LoadingController, public toastController: ToastController) {
+    super(loadingController, toastController);
+  }
 
   selectedTabLink$: Observable<string>;
 
@@ -36,6 +40,11 @@ export class HomeDetailComponent implements OnInit {
   hasInfiniteData = true;
 
   ngOnInit() {
+    this.createLoading("");
+    setTimeout(() => {
+      this.destroyLoading();
+      this.createToast('士大夫撒旦法师');
+    }, 5000);
     this.selectedTabLink$ = this.route.paramMap.pipe(
       filter(params => params.has('tabLink')),
       map(params => params.get('tabLink'))

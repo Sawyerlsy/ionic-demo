@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Ad, Channel, ImageSlider, Product, TopMenu } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
+import { LogService } from './log.service';
 
 /**
  * 如果采用 `providedIn` ，
@@ -14,34 +17,34 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class RestService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private logService: LogService) { }
 
   /**
    * 获取首页轮播图
    */
   getBanners() {
-    return this.http.get<ImageSlider[]>(`${environment.baseUrl}/banners`);
+    return this.restGet<ImageSlider[]>('getBanners', '/banners');
   }
 
   /**
    * 获取首页频道
    */
   getChannels() {
-    return this.http.get<Channel[]>(`${environment.baseUrl}/channels`);
+    return this.restGet<Channel[]>('getChannels', '/channels');
   }
 
   /**
    * 获取首页顶部菜单
    */
   getTabs() {
-    return this.http.get<TopMenu[]>(`${environment.baseUrl}/tabs`);
+    return this.restGet<TopMenu[]>('getTabs', '/tabs');
   }
 
   /**
    * 获取首页广告
    */
   getAdByTab(tab: string) {
-    return this.http.get<Ad[]>(`${environment.baseUrl}/ads`, {
+    return this.restGet<Ad[]>('getAdByTab', '/ads', {
       params: { categories_like: tab }
     });
   }
@@ -50,8 +53,51 @@ export class RestService {
    * 获取首页商品信息
    */
   getProductsByTab(tab: string) {
-    return this.http.get<Product[]>(`${environment.baseUrl}/products`, {
+    return this.restGet<Product[]>('getProductsByTab', '/products', {
       params: { categories_like: tab }
     });
   }
+
+
+  /**
+   *  get 请求
+   */
+  private restGet<T>(operation: string, url: string, options?: HttpOption): Observable<T> {
+    return this.http.get<T>(environment.baseUrl + url, options)
+      .pipe(catchError((err: HttpErrorResponse) => this.handleError(err)));
+  }
+
+
+
+  /**
+   *  post 请求
+   */
+  private restPost<T>(operation: string, url: string, options?: HttpOption): Observable<T> {
+    return this.http.post<T>(environment.baseUrl + url, options)
+      .pipe(catchError((err: HttpErrorResponse) => this.handleError(err)));
+  }
+
+
+  /**
+   * 将错误信息发送到服务器端
+   */
+  private handleError<T>(error: HttpErrorResponse): Observable<any> {
+    // TODO:将错误信息发送到服务器端
+    console.error(error);
+    this.logService.logError(`failed: ${error.message}`);
+    return of(error);
+  }
+}
+
+export interface HttpOption {
+  headers?: HttpHeaders | {
+    [header: string]: string | string[];
+  };
+  observe?: 'body';
+  params?: HttpParams | {
+    [param: string]: string | string[];
+  };
+  reportProgress?: boolean;
+  responseType?: 'json';
+  withCredentials?: boolean;
 }

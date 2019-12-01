@@ -21,10 +21,11 @@ export class CartPage implements OnInit {
 
   public hasData = false;     //判断购物车是否有数据
 
-  constructor(public storage: StorageService, public common: CommonService, 
-    public cartService: CartService, public navController: NavController) {
+  cartService: any;
 
-    this.config = this.common.config;
+  constructor(public storage: StorageService, public navController: NavController) {
+
+    // this.config = this.common.config;
 
   }
 
@@ -38,7 +39,7 @@ export class CartPage implements OnInit {
 
     this.isCheckAllFn();
     //获取选中商品的总价
-    this.allPrice = this.cartService.getAllPrice(this.list);
+    // this.allPrice = this.cartService.getAllPrice(this.list);
   }
 
   ionViewDidEnter(): void {
@@ -49,7 +50,7 @@ export class CartPage implements OnInit {
 
   getCartsData() {
     var cartList = this.storage.get('cartList');
-    if (cartList && cartList.length > 0) {
+    if (cartList /* && cartList.length > 0 */) {
       this.list = cartList;
       this.hasData = true;
 
@@ -60,7 +61,7 @@ export class CartPage implements OnInit {
     }
 
     //获取选中商品的总价
-    this.allPrice = this.cartService.getAllPrice(this.list);
+    // this.allPrice = this.cartService.getAllPrice(this.list);
   }
 
 
@@ -72,13 +73,13 @@ export class CartPage implements OnInit {
       item.product_count--
     }
     //获取选中商品的总价
-    this.allPrice = this.cartService.getAllPrice(this.list);
+    // this.allPrice = this.cartService.getAllPrice(this.list);
   }
   //增加数量
   incCount(item: any) {
     item.product_count++;
     //获取选中商品的总价
-    this.allPrice = this.cartService.getAllPrice(this.list);
+    // this.allPrice = this.cartService.getAllPrice(this.list);
   }
 
   //判断是否全选

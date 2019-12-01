@@ -9,6 +9,12 @@ import { NavController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
+  telphone: string;
+  password: string;
+  confirmPassword: string;
+  verifyCode: string;
+
+
   constructor(private router: Router, private navCtrl: NavController) {
   }
 

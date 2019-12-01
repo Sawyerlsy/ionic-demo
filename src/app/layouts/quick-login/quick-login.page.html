@@ -20,17 +20,17 @@
     <ion-img class="login-logo" src="assets/avatars/avatar005.png"></ion-img>
   </div>
 
-  <ion-list lines='none' mode='ios' class="login-box">
+  <ion-list lines='none' class="login-box">
     <ion-item >
       <ion-label slot="start" style="margin-right: 1rem;" color="dark">
         +86
       </ion-label>
-      <ion-input autocomplete="off" type="text" debounce="300" placeholder="手机号" mode='ios'></ion-input>
+      <ion-input autocomplete="off" type="text" debounce="300" placeholder="手机号" [(ngModel)]="telphone"></ion-input>
     </ion-item>
 
     <ion-item-group >
       <ion-item  slot="start">
-        <ion-input autocomplete="off" type='password' debounce="300" placeholder="验证码" mode='ios'></ion-input>
+        <ion-input autocomplete="off" type='password' debounce="300" placeholder="验证码"></ion-input>
       </ion-item>
       <ion-button style="height: 44px;" slot="end" color="danger" expand="full">发送验证码</ion-button>
     </ion-item-group>

@@ -36,7 +36,7 @@
 
     <div class="user-info not-login" *ngIf="!userinfo">
       <div class="settings">
-        <ion-button size="small" fill="clear" color="light" class="settings" [routerLink]="['/personal']">
+        <ion-button size="small" fill="clear" color="light" [routerLink]="['/personal']">
           <ion-icon slot="icon-only" name="settings"></ion-icon>
         </ion-button>
       </div>
@@ -45,8 +45,10 @@
           <img src="/assets/icons/user.png" />
         </div>
         <div class="detail">
-          <p [routerLink]="['/login']">登录/注册 <ion-icon slot="start" name="arrow-forward"></ion-icon>
-          </p>
+            <ion-button size="small" fill="clear" color="light" [routerLink]="['/login']">
+              登录/注册
+              <ion-icon name="arrow-forward"></ion-icon>
+            </ion-button>
         </div>
       </div>
       <div class="favorite">
