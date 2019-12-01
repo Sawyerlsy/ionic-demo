@@ -15,20 +15,40 @@ import { environment } from 'src/environments/environment';
 })
 export class RestService {
   constructor(private http: HttpClient) { }
+
+  /**
+   * 获取首页轮播图
+   */
   getBanners() {
     return this.http.get<ImageSlider[]>(`${environment.baseUrl}/banners`);
   }
+
+  /**
+   * 获取首页频道
+   */
   getChannels() {
     return this.http.get<Channel[]>(`${environment.baseUrl}/channels`);
   }
+
+  /**
+   * 获取首页顶部菜单
+   */
   getTabs() {
     return this.http.get<TopMenu[]>(`${environment.baseUrl}/tabs`);
   }
+
+  /**
+   * 获取首页广告
+   */
   getAdByTab(tab: string) {
     return this.http.get<Ad[]>(`${environment.baseUrl}/ads`, {
       params: { categories_like: tab }
     });
   }
+
+  /**
+   * 获取首页商品信息
+   */
   getProductsByTab(tab: string) {
     return this.http.get<Product[]>(`${environment.baseUrl}/products`, {
       params: { categories_like: tab }

@@ -15,47 +15,9 @@ export interface SelfInfo {
 })
 export class MyPage implements OnInit {
 
-  myList: SelfInfo[];
+  userinfo: any = {};
 
   constructor(public alertController: AlertController) { }
-
-  ngOnInit() {
-    this.myList = [
-      {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '我的订单',
-        link: 'order'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '浏览历史',
-        link: 'browsing_history'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '我的收藏',
-        link: 'favorite'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '基本信息',
-        link: 'info'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '帮助中心',
-        link: 'help'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '关于我们',
-        link: 'about'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '联系客服',
-        link: 'customservice'
-      }, {
-        img: 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png',
-        name: '关于APP',
-        link: 'versions'
-      }];
-  }
-
 
   async doPress() {
     const alert = await this.alertController.create({
@@ -66,5 +28,27 @@ export class MyPage implements OnInit {
     });
     await alert.present();
   }
+
+
+  ngOnInit() {
+
+    //监听注册 登录成功的事件
+    this.userinfo = [];
+  }
+
+
+  //在页面tab切换  以及第一次加载的时候会触发    但是login返回的时候没法触发
+  ionViewWillEnter() {
+
+    console.log('ionViewWillEnter');
+  }
+
+  ionViewDidEnter() {
+
+    console.log('ionViewDidEnter');
+  }
+
+
+  //解决问题：注册、登录成功返回以后立即显示用户信息  
 
 }
