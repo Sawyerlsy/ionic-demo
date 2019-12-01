@@ -30,6 +30,11 @@ export class HomeDetailComponent implements OnInit {
 
   @ViewChild('banner', { static: true }) baner: IonSlides;
 
+  /**
+   * 
+   */
+  hasInfiniteData = true;
+
   ngOnInit() {
     this.selectedTabLink$ = this.route.paramMap.pipe(
       filter(params => params.has('tabLink')),
@@ -79,5 +84,13 @@ export class HomeDetailComponent implements OnInit {
    */
   ionSlideTouchEnd(e) {
     this.baner.startAutoplay();
+  }
+
+  loadMoreData(event) {
+    console.log("parent loadMoreData:", event);
+    setTimeout(() => {
+      event.target.complete();
+      this.hasInfiniteData = false;
+    }, 5000);
   }
 }

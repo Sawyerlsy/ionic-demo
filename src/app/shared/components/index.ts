@@ -6,6 +6,7 @@
 export * from './count-down';
 export * from './horizontal-grid';
 export * from './product-card';
+export * from './product-list';
 export * from './scrollable-tab';
 export * from './vertical-grid';
 

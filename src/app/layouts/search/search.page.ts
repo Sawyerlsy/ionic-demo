@@ -11,9 +11,25 @@ import { Product } from 'src/app/shared';
 })
 export class SearchPage implements OnInit {
 
+  /**
+   * 用于搜索的条件项
+   */
   private searchTerms = new Subject<string>();
 
+  /**
+   * 商品
+   */
   product$: Observable<Product[]>;
+
+  /**
+   * 是否显示商品,默认不显示
+   */
+  showProducts = false;
+
+  /**
+   * 关键词
+   */
+  keywords: string;
 
   constructor(private productService: ProductService) { }
 
@@ -30,8 +46,14 @@ export class SearchPage implements OnInit {
     );
   }
 
-  search(term: string) {
-    this.searchTerms.next(term);
+  /**
+   * 
+   * 搜索
+   */
+  search() {
+    console.log("search...");
+    this.searchTerms.next(this.keywords);
+    this.showProducts = true;
   }
 
 }

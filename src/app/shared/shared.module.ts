@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { CountDownComponent, HorizontalGridComponent, ProductCardComponent, ScrollableTabComponent, VerticalGridComponent } from './components';
+import { CountDownComponent, HorizontalGridComponent, ProductCardComponent, ProductListComponent, ScrollableTabComponent, VerticalGridComponent } from './components';
 import { AvatarDirective, GoToDirective, GridItemDirective, GridItemImageDirective, GridItemTitleDirective, TagDirective } from './directives';
 import { AgoPipe } from './pipes';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AgoPipe } from './pipes';
     TagDirective,
     AvatarDirective,
     AgoPipe,
-    GoToDirective
+    GoToDirective,
+    ProductListComponent
   ],
   imports: [CommonModule, FormsModule, IonicModule],
   exports: [CommonModule, FormsModule, IonicModule,
@@ -28,6 +30,7 @@ import { AgoPipe } from './pipes';
     CountDownComponent,
     VerticalGridComponent,
     ProductCardComponent,
+    ProductListComponent,
     GridItemDirective,
     GridItemImageDirective,
     GridItemTitleDirective,
