@@ -1,13 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Product } from 'src/app/shared';
-import { environment } from 'src/environments/environment';
-import { LogService } from './log.service';
+import { map } from 'rxjs/operators';
+import { Product, SearchCondition } from 'src/app/shared';
+import { RestService } from './rest.service';
 
 /**
- * Product Service
+ * 商品服务
  * @author Sawyer
  */
 @Injectable({
@@ -15,25 +13,25 @@ import { LogService } from './log.service';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient, private logService: LogService) { }
+  constructor(private restService: RestService) { }
 
   /**
-   * find product by keywords
+   * 查找商品
    */
-  findProducts(keywords: string): Observable<Product[]> {
-    if (!keywords.trim()) {
+  findProduct(condition: SearchCondition): Observable<Product[]> {
+    console.log("condition:", condition);
+    if (!condition) {
       return of([]);
     }
 
-    return this.http.get<Product[]>(`${environment.baseUrl}/products?keywords=${keywords}`)
-      .pipe(catchError(this.handleError('findProducts', [])));
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any) => {
-      console.error(error);
-      this.logService.logError(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+    // TODO: 完善搜索逻辑
+    return this.restService.findProduct(condition).pipe(map(res => {
+      if (res.isSuccess) {
+        console.log("issuccess...", res.data);
+        return res.data;
+      } else {
+        return [];
+      }
+    }));
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
@@ -6,6 +6,7 @@ import { NavController } from '@ionic/angular';
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterPage implements OnInit {
 

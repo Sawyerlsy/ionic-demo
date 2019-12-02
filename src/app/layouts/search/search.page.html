@@ -5,8 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-searchbar placeholder="请输入搜索关键词" [(ngModel)]="keywords" animated></ion-searchbar>
-
+    <ion-searchbar placeholder="请输入搜索关键词" [(ngModel)]="keyword" animated class="top-search"></ion-searchbar>
     <ion-buttons slot="end" (click)="search()">
       <ion-button color="dark">
         搜索
@@ -14,65 +13,77 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-toolbar class="sub_toolbar" *ngIf="showProducts">
-    <div class="subheader">
-      <div class="active">综合</div>
-      <div>销量</div>
-      <div>价格</div>
-      <div>筛选</div>
+  <ion-toolbar class="sub-toolbar" *ngIf="showProducts">
+    <div class="filter-list">
+      <div class="filter-item active">综合</div>
+      <div class="filter-item">销量</div>
+      <div class="filter-item">价格</div>
+      <div class="filter-item">筛选</div>
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="search_content ion-padding" *ngIf="!showProducts">
-    <div class="hotlist">
-      <h3 class="search_title">热搜</h3>
-      <p>
-        <span>女装</span>
-        <span>男装</span>
-        <span>家具</span>
-        <span>化妆品</span>
-        <span>女装</span>
-        <span>女装</span>
-        <span>男装</span>
-        <span>家具</span>
-        <span>化妆品</span>
-      </p>
+  <div class="search-container" *ngIf="!showProducts">
+    <div class="search-history">
+      <div>
+        <ion-item class="search-title" lines="none">
+          <ion-label class="search-text">搜索历史</ion-label>
+          <ion-icon slot="end" name="trash"></ion-icon>
+        </ion-item>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-label>Default</ion-label>
+        </ion-chip>
+      </div>
     </div>
 
-    <!-- <div class="history">
-      <div *ngIf="historyList.length>0">
-        <h3 class="search_title">历史搜索</h3>
-        <ion-list lines="full">
-          <ion-item *ngFor="let item of historyList;let key=index;" (press)="removeHistory(key)" (tap)="goSearch(item)">
-            {{item}}
-          </ion-item>
-        </ion-list>
+    <div class="search-discover">
+      <div>
+        <ion-item class="search-title" lines="none">
+          <ion-label class="search-text">搜索发现</ion-label>
+        </ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              家具家具
+            </ion-col>
+            <ion-col size="6">
+              家具家具
+            </ion-col>
+            <ion-col size="6">
+              家具家具
+            </ion-col>
+            <ion-col size="6">
+              家具家具
+            </ion-col>
+            <ion-col size="6">
+              家具家具
+            </ion-col>
+            <ion-col size="6">
+              家具家具
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
-    </div> -->
-
+    </div>
   </div>
-
-
-  <!-- <div class="list_content" *ngIf="!flag">
-    <ion-list>
-      <ion-item *ngFor="let item of productList">
-        <ion-thumbnail slot="start">
-          <img [src]="config.domain+item.pic" />
-        </ion-thumbnail>
-        <ion-label>
-          <h3>{{item.title}}</h3>
-          <p><span class="price">¥{{item.price}}</span></p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-
-    <ion-infinite-scroll *ngIf="hasInfiniteData" threshold="100px" (ionInfinite)="getProductList($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-
-  </div> -->
-  <app-product-list></app-product-list>
+  <app-product-list [products]="product$ | async"></app-product-list>
 </ion-content>
