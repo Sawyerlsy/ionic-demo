@@ -9,7 +9,7 @@ export abstract class BaseUI {
         protected toastController: ToastController) {
     }
 
-    async createLoading(msg: string, loadingId?: string) {
+    async createLoading(msg?: string, loadingId?: string) {
         const loading = await this.loadingController.create({
             message: msg,
             duration: 0,

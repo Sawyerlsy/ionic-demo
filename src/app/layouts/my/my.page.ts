@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { EventService } from 'src/app/core';
 
 
 export interface SelfInfo {
@@ -18,7 +19,8 @@ export class MyPage implements OnInit {
 
   userinfo: any = {};
 
-  constructor(public alertController: AlertController, private storage: Storage) { }
+  constructor(public alertController: AlertController,
+    private storage: Storage, private eventService: EventService) { }
 
   async doPress() {
     const alert = await this.alertController.create({
@@ -38,6 +40,10 @@ export class MyPage implements OnInit {
     this.storage.set('user', { username: 'Sawyer', sex: 'mail' });
     this.storage.get('user').then(val => {
       console.log("get user:", val);
+    });
+
+    this.eventService.subscribe('test', (res) => {
+      console.log('subscribe test', res);
     });
   }
 

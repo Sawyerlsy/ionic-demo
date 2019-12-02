@@ -40,11 +40,11 @@ export class HomeDetailComponent extends BaseUI implements OnInit {
   hasInfiniteData = true;
 
   ngOnInit() {
-    this.createLoading("");
+    this.createLoading('', 'globalLoading');
     setTimeout(() => {
       this.destroyLoading();
-      this.createToast('士大夫撒旦法师');
-    }, 5000);
+    }, 2000);
+
     this.selectedTabLink$ = this.route.paramMap.pipe(
       filter(params => params.has('tabLink')),
       map(params => params.get('tabLink'))

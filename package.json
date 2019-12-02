@@ -49,6 +49,7 @@
     "cordova-plugin-whitelist": "^1.3.4",
     "cordova-sqlite-storage": "^3.4.0",
     "core-js": "^3.3.6",
+    "eventemitter3": "^4.0.0",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.5.3",
     "silly-datetime": "^0.1.2",

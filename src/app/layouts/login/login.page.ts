@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, NavController, ToastController } from '@ionic/angular';
+import { EventService } from 'src/app/core/services/event.service';
 import { slideToRight, slideToTop } from '../../shared/animations/animations';
 
 
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private router: Router,
     private route: ActivatedRoute,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private eventService: EventService) {
 
   }
 
@@ -49,6 +51,8 @@ export class LoginPage implements OnInit {
    * 登录
    */
   login() {
+    this.eventService.broadcast('test', 'This is a message from LoginPage!');
+    this.navCtrl.back();
     /* var loading = super.showLoading(this.loadingCtrl, "登录中...");
     this.rest.login(this.mobile, this.password)
       .subscribe(
