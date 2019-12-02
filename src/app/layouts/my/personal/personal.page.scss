@@ -1,0 +1,19 @@
+:host {
+    background: #F5F6F7;
+}
+
+ion-content {
+    background: #F5F6F7;
+}
+
+.personal-container {
+    ion-item-divider {
+        min-height: 0.6rem;
+        --background: #F5F6F7;
+    }
+
+    .signout {
+        // --background: #fff;
+        // --color: #333;
+    }
+}

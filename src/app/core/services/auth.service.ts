@@ -29,13 +29,20 @@ export class AuthService {
     /**
      * 授权指定用户
      */
-    autorization(user: User): boolean {
+    authorization(user: User): boolean {
         // 存储当前用户对象
         if (user && user.username) {
             this.storageService.set(this.STORAGE_USER_KEY, user);
             return true;
         }
         return false;
+    }
+
+    /**
+     * 收回权限
+     */
+    revoke() {
+        return this.storageService.remove(this.STORAGE_USER_KEY);
     }
 
     /**

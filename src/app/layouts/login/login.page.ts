@@ -1,29 +1,31 @@
-import { ChangeDetectionStrategy, Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { LoadingController, NavController, ToastController } from '@ionic/angular';
 import { BaseUI } from 'src/app/core/BaseUI';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EventService, UserEvent } from 'src/app/core/services/event.service';
 import { RestService } from 'src/app/core/services/rest.service';
 import { ValidateUtil } from 'src/app/shared/validate';
-import { slideToRight, slideToTop } from '../../shared/animations/animations';
+// import { slideToRight, slideToTop } from '../../shared/animations/animations';
 
 /**
  * 登录页面
  * @author Sawyer
  */
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    slideToRight,
-    slideToTop
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
+  /* animations: [
+   slideToRight,
+   slideToTop
+ ] */
 })
 export class LoginPage extends BaseUI implements OnInit {
 
-  @HostBinding('@slideToTop') slideToTop;
+  // @HostBinding('@slideToTop') slideToTop;
 
   username: string;
   password: string;
@@ -65,7 +67,7 @@ export class LoginPage extends BaseUI implements OnInit {
     this.restService.login(params).subscribe(res => {
       loading.dismiss();
       if (res.isSuccess) {
-        this.authService.autorization(res.data);
+        this.authService.authorization(res.data);
         this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
         this.navCtrl.back();
       } else {

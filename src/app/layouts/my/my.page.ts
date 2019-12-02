@@ -42,6 +42,17 @@ export class MyPage implements OnInit {
     this.eventService.subscribe(UserEvent.SIGN_IN, (res) => {
       this.currentUser = res;
     });
+
+    // 监听用户退出事件
+    this.eventService.subscribe(UserEvent.SIGN_OUT, (res) => {
+      this.currentUser = res;
+    });
+
+    // 监听用户注册事件
+    this.eventService.subscribe(UserEvent.SIGN_UP, (res) => {
+      console.log('sign up...');
+    });
+
   }
 
 }

@@ -29,6 +29,10 @@ const routes: Routes = [
     loadChildren: () => import('./layouts/scan').then(m => m.ScanPageModule)
   },
   {
+    path: 'personal',
+    loadChildren: () => import('./layouts/my/personal').then(m => m.PersonalPageModule)
+  },
+  {
     path: 'versions',
     loadChildren: () => import('./layouts/versions').then(m => m.VersionsPageModule)
   },
@@ -57,6 +61,7 @@ const routes: Routes = [
  *   component: HomeContainerComponent
  * }]
  * ```
+ * @author Sawyer
  */
 @NgModule({
   declarations: [],
