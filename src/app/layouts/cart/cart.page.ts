@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { StorageService } from 'src/app/core';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-cart',

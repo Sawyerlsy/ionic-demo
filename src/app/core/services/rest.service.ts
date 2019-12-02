@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Ad, Channel, ImageSlider, Product, TopMenu } from 'src/app/shared';
+import { HttpOption } from 'src/app/shared/model/http';
 import { environment } from 'src/environments/environment';
 import { LogService } from './log.service';
 
@@ -17,6 +18,7 @@ import { LogService } from './log.service';
   providedIn: 'root'
 })
 export class RestService {
+
   constructor(private http: HttpClient, private logService: LogService) { }
 
   /**
@@ -58,6 +60,17 @@ export class RestService {
     });
   }
 
+  /**
+   * 用户登录
+   * @param params username and password
+   */
+  login(params: { username: string; password: string; }) {
+    // TODO: 实现用户登录接口
+    // return this.restPost<ApiResult<User>>('login', '/login');
+    const user = { username: '蝙蝠之殇', mobile: '15813383164' };
+    const apiResult = { code: 200, message: '登入成功', isSuccess: true, data: user };
+    return of(apiResult);
+  }
 
   /**
    *  get 请求
@@ -82,22 +95,21 @@ export class RestService {
    * 将错误信息发送到服务器端
    */
   private handleError<T>(error: HttpErrorResponse): Observable<any> {
-    // TODO:将错误信息发送到服务器端
+    // TODO: 完善日志信息,将错误信息发送到服务器端
     console.error(error);
     this.logService.logError(`failed: ${error.message}`);
     return of(error);
   }
+
+  test(url: String, json: Object) {
+    var api = url;
+    return new Promise((resove, reject) => {
+      this.http.post('api', json).subscribe((response) => {
+        resove(response);
+      }, (error) => {
+        reject(error);
+      })
+    })
+  }
 }
 
-export interface HttpOption {
-  headers?: HttpHeaders | {
-    [header: string]: string | string[];
-  };
-  observe?: 'body';
-  params?: HttpParams | {
-    [param: string]: string | string[];
-  };
-  reportProgress?: boolean;
-  responseType?: 'json';
-  withCredentials?: boolean;
-}

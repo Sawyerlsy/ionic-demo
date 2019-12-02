@@ -2,6 +2,9 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
+/**
+ * 通知
+ */
 @Injectable({
   providedIn: 'root'
 })

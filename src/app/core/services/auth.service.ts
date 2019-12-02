@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+import { StorageService } from 'src/app/core/services/storage.service';
+import { User } from 'src/app/shared/model/user';
+
+/**
+ * 用户鉴权和授权服务
+ */
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthService {
+
+    private STORAGE_USER_KEY = 'currentUser';
+
+    constructor(private storageService: StorageService) {
+    }
+
+    /**
+     * 判断用户是否已经登入
+     */
+    async isSignIn(): Promise<boolean> {
+        let currentUser = null;
+        await this.getSubject().then(val => {
+            currentUser = val;
+        });
+        return null != currentUser;
+    }
+
+    /**
+     * 授权指定用户
+     */
+    autorization(user: User): boolean {
+        // 存储当前用户对象
+        if (user && user.username) {
+            this.storageService.set(this.STORAGE_USER_KEY, user);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取当前登录用户
+     */
+    getSubject(): Promise<User> {
+        return this.storageService.get(this.STORAGE_USER_KEY);
+    }
+}

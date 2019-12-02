@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
+/**
+ * 存储服务
+ * @author Sawyer
+ */
 @Injectable({
     providedIn: 'root'
 })
 export class StorageService {
-    constructor(private storage: Storage) { }
 
-    getUserId(): string {
-        return 'sawyer';
-    }
+    constructor(private storage: Storage) { }
 
     /**
      * 设置给定键的值，返回 Promise 对象

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { RestService } from 'src/app/core';
+import { RestService } from 'src/app/core/services/rest.service';
 import { TopMenu } from 'src/app/shared';
 
 @Component({

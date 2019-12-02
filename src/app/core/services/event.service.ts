@@ -31,3 +31,24 @@ export class EventService {
         return this.event.on(topic, listener);
     }
 }
+
+/**
+ * 用户事件
+ */
+export enum UserEvent {
+
+    /**
+     * 登录
+     */
+    SIGN_IN = 'sign in',
+
+    /**
+     * 注册
+     */
+    SIGN_UP = 'sign up',
+
+    /**
+     * 退出
+     */
+    SIGN_OUT = 'sign out'
+}

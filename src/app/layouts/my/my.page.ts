@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-import { EventService } from 'src/app/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { EventService, UserEvent } from 'src/app/core/services/event.service';
+import { User } from 'src/app/shared/model/user';
 
 
 export interface SelfInfo {
@@ -17,10 +18,10 @@ export interface SelfInfo {
 })
 export class MyPage implements OnInit {
 
-  userinfo: any = {};
+  currentUser: User;
 
-  constructor(public alertController: AlertController,
-    private storage: Storage, private eventService: EventService) { }
+  constructor(public alertController: AlertController, private authService: AuthService,
+    private eventService: EventService) { }
 
   async doPress() {
     const alert = await this.alertController.create({
@@ -34,32 +35,13 @@ export class MyPage implements OnInit {
 
 
   ngOnInit() {
+    // 页面初始化完毕后,尝试加载用户信息
+    this.authService.getSubject().then(val => this.currentUser = val);
 
-    //监听注册 登录成功的事件
-    this.userinfo = null;
-    this.storage.set('user', { username: 'Sawyer', sex: 'mail' });
-    this.storage.get('user').then(val => {
-      console.log("get user:", val);
-    });
-
-    this.eventService.subscribe('test', (res) => {
-      console.log('subscribe test', res);
+    // 监听用户登录事件
+    this.eventService.subscribe(UserEvent.SIGN_IN, (res) => {
+      this.currentUser = res;
     });
   }
-
-
-  //在页面tab切换  以及第一次加载的时候会触发    但是login返回的时候没法触发
-  ionViewWillEnter() {
-
-    console.log('ionViewWillEnter');
-  }
-
-  ionViewDidEnter() {
-
-    console.log('ionViewDidEnter');
-  }
-
-
-  //解决问题：注册、登录成功返回以后立即显示用户信息  
 
 }

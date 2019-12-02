@@ -19,28 +19,61 @@
     <ion-img class="login-logo" src="assets/avatars/avatar005.png"></ion-img>
   </div>
 
-  <ion-list lines='none' class="login-box">
-    <ion-item>
-      <ion-label slot="start" style="margin-right: 1rem;" color="medium">
-        <ion-icon name="person"></ion-icon>
-      </ion-label>
-      <ion-input autocomplete="off" type="text" placeholder="请输入会员名/手机号" debounce="300" [(ngModel)]="username">
-      </ion-input>
-    </ion-item>
+  <form (ngSubmit)="login()" #loginForm>
+    <ion-list lines='none' class="login-box">
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="medium">
+          <ion-icon name="person"></ion-icon>
+        </ion-label>
+        <ion-input autocomplete="off" type="text" placeholder="请输入会员名/手机号" debounce="300" [(ngModel)]="username"
+          required name="username">
+        </ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label slot="start" style="margin-right: 1rem;" color="medium">
-        <ion-icon name="lock"></ion-icon>
-      </ion-label>
-      <ion-input autocomplete="off" type='password' debounce="300" placeholder="密码" [(ngModel)]="password"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="medium">
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input autocomplete="off" type='password' debounce="300" placeholder="密码" [(ngModel)]="password"
+          name="password">
+        </ion-input>
+      </ion-item>
 
-    <ion-button class="login" color="danger" expand="full" (click)="login()">登录</ion-button>
+      <ion-button class="login" color="danger" expand="full" type="submit" [disabled]="!username || !password">登录
+      </ion-button>
 
-    <ion-item lines='none' class="item-last">
-      <ion-button slot="start" color="dark" fill="clear">关于我们</ion-button>
-      <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/quicklogin'">快速登录</ion-button>
-      <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/register'">注册</ion-button>
-    </ion-item>
-  </ion-list>
+      <ion-item lines='none' class="item-last">
+        <ion-button slot="start" color="dark" fill="clear">关于我们</ion-button>
+        <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/quicklogin'">快速登录</ion-button>
+        <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/register'">注册</ion-button>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <!-- <ion-list lines='none' class="login-box">
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="medium">
+          <ion-icon name="person"></ion-icon>
+        </ion-label>
+        <ion-input autocomplete="off" type="text" placeholder="请输入会员名/手机号" debounce="300" [(ngModel)]="username"
+          required="true" minlength="2">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="medium">
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input autocomplete="off" type='password' debounce="300" placeholder="密码" [(ngModel)]="password"></ion-input>
+      </ion-item>
+  
+      <ion-button class="login" color="danger" expand="full" (click)="login()">登录</ion-button>
+  
+      <ion-item lines='none' class="item-last">
+        <ion-button slot="start" color="dark" fill="clear">关于我们</ion-button>
+        <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/quicklogin'">快速登录</ion-button>
+        <ion-button slot="end" color="dark" fill="clear" [routerLink]="'/register'">注册</ion-button>
+      </ion-item>
+    </ion-list> -->
+
 </ion-content>
