@@ -1,5 +1,5 @@
 <div class="product-list-container" [ngClass]="displayMode">
-  <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)" *ngIf="enabled">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
       refreshingText="正在刷新中...">
     </ion-refresher-content>
@@ -21,7 +21,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-infinite-scroll *ngIf="hasInfiniteData" threshold="100px" (ionInfinite)="findMoreProduct($event)">
+  <ion-infinite-scroll *ngIf="hasInfiniteData && enabled" threshold="100px" (ionInfinite)="findMoreProduct($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

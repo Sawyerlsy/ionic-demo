@@ -58,4 +58,24 @@ export class SearchPage implements OnInit {
     this.searchTrigger$.next(condition);
   }
 
+  /**
+   * 下拉刷新
+   */
+  refresh(e) {
+    // TODO:下拉刷新
+    setTimeout(() => {
+      e && e.target.complete();
+    }, 2000);
+  }
+
+  /**
+   * 上拉加载更多
+   */
+  loadMore(e) {
+    // TODO:实现上拉加载更多
+    setTimeout(() => {
+      e && e.target.complete();
+    }, 2000);
+  }
+
 }

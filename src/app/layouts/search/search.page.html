@@ -85,5 +85,6 @@
       </div>
     </div>
   </div>
-  <app-product-list [products]="product$ | async"></app-product-list>
+  <app-product-list [products]="product$ | async" [enabled]="showProducts" (loadMore)="loadMore($event)"
+    (refresh)="refresh($event)"></app-product-list>
 </ion-content>

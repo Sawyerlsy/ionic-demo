@@ -22,6 +22,12 @@ export class ProductListComponent implements OnInit {
   @Output() refresh = new EventEmitter();
 
   /**
+   * 控制是否启用下拉刷新和上拉加载更多
+   * <p>主要是为了修复在搜索页面,没有商品时仍然可以上拉和下拉的bug</p>
+   */
+  @Input() enabled = false;
+
+  /**
    * 是否还有更多的数据,默认为false
    */
   @Input() hasInfiniteData = true;
