@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavoritePage implements OnInit {
 
+  /**
+   * 选项卡,默认为产品
+   */
+  tab = 'product';
+
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  /**
+   * 显示或隐藏滑动选项
+   */
+  toggleOption() {
+    console.log("toggle option...");
+  }
 }

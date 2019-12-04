@@ -37,6 +37,7 @@ html body {
     font-family: "Microsoft YaHei", "hiragino sans gb", "SimHei", "SimSun", Arial, Lucida Grande, Tahoma, sans-serif;
     color: #333;
     height: 100%; */
+    color: #191A1B;
 }
 
 div,
@@ -198,4 +199,18 @@ table {
 
 .custom-toast {
     --max-width: 50vw;
+}
+
+/* override ionic component style */
+ion-title {
+    --color: #191A1B;
+    font-weight: normal;
+}
+
+ion-label {
+    --color: #191A1B;
+}
+
+ion-item {
+    --border-color: #efefef;
 }

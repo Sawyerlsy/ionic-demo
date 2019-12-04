@@ -1,6 +1,14 @@
 .footer-tabs {
+    ion-tab-bar {
+        --background: #F8F9FA;
+        --color: #191A1B;
+    }
+
     ion-tab-button {
-        --color: #8C8E8C;
+        --color: #7b7c7d;
         --color-selected: #F53D3D;
+        --background: #F8F9FA;
+        font-size: 0.8rem;
+        --padding-bottom: 3px;
     }
 }

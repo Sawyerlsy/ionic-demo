@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-
-import { IonicModule } from '@ionic/angular';
-
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from 'src/app/shared';
 import { FavoritePage } from './favorite.page';
+
+
 
 const routes: Routes = [
   {
@@ -14,13 +12,16 @@ const routes: Routes = [
   }
 ];
 
+/**
+ * 收藏页面
+ */
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [FavoritePage]
 })
-export class FavoritePageModule {}
+export class FavoritePageModule { 
+
+}

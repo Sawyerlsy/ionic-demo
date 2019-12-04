@@ -1,9 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>favorite</ion-title>
+    <ion-title>我的收藏</ion-title>
   </ion-toolbar>
+  <ion-segment [(ngModel)]="tab">
+    <ion-segment-button value="product">
+      <ion-label>产品</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="shop">
+      <ion-label>店铺</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content>
+  <div>
+    <div class="favorite-container" [ngSwitch]="tab">
+      <ion-list *ngSwitchCase="'product'" class="favorite-list">
+        <ion-item-sliding class="favorite-item">
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-thumbnail>
+            <div class="favorite-content">
+              <span class="product-title">商品商品商品商品商品商品商品商品商品sdfasdf sdfdsf对方水电费水电费收到水电费</span>
+              <span class="product-price">{{ 2784 | currency: 'CNY':'symbol-narrow' }}</span>
+            </div>
+            <ion-icon name="more" slot="end" (click)="toggleOption()"></ion-icon>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="share(item)">取消收藏</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
 
+      <ion-list *ngSwitchCase="'shop'">
+        <ion-item-sliding class="favorite-item">
+          <ion-item>
+            <ion-thumbnail slot="start">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-thumbnail>
+            <div class="favorite-content">
+              <span class="shop-title">玛奇朵</span>
+              <span class="shop-desc">品牌直营店</span>
+            </div>
+            <ion-icon name="more" slot="end" (click)="toggleOption()"></ion-icon>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="share(item)">取消收藏</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <div class="recommend-container">
+
+    </div>
+  </div>
 </ion-content>
