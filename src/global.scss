@@ -30,7 +30,7 @@ $golbalBackground:#F1F2F6;
 
 html {
     // font-size: 62.5%;
-    color: #191A1B;
+    // color: #191A1B;
 }
 
 html body {
@@ -206,6 +206,10 @@ table {
 }
 
 /* override ionic component style */
+ion-content {
+    background: $golbalBackground;
+}
+
 ion-title {
     --color: #191A1B;
     font-weight: normal;
@@ -225,4 +229,16 @@ ion-item {
 
 ion-segment {
     background: #fff;
+}
+
+ion-infinite-scroll {
+    background: $golbalBackground;
+}
+
+ion-refresher {
+    background: $golbalBackground;
+}
+
+.overscroll {
+    background: $golbalBackground;
 }

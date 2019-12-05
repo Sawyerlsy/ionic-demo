@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { Ad, Channel, ImageSlider, Product } from 'src/app/shared';
   selector: 'app-home-detail',
   templateUrl: './home-detail.component.html',
   styleUrls: ['./home-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeDetailComponent extends BaseUI implements OnInit {
   constructor(private route: ActivatedRoute, private service: RestService,
@@ -35,11 +35,11 @@ export class HomeDetailComponent extends BaseUI implements OnInit {
   @ViewChild('banner', { static: true }) baner: IonSlides;
 
   /**
-   * 
+   * 是否还有更多商品,默认为true
    */
-  hasInfiniteData = true;
+  hasMoreProduct = true;
 
-   ngOnInit() {
+  ngOnInit() {
     /* const loading = await this.createLoading();
     setTimeout(() => {
       loading.dismiss();
@@ -95,11 +95,20 @@ export class HomeDetailComponent extends BaseUI implements OnInit {
     this.baner.startAutoplay();
   }
 
-  loadMoreData(event) {
-    console.log("parent loadMoreData:", event);
+  findMoreProduct(event) {
+    console.log("homeDetail 下拉刷新:", event);
     setTimeout(() => {
-      event.target.complete();
-      this.hasInfiniteData = false;
-    }, 5000);
+      // event.target.complete();
+      event.target.disabled = true;
+      this.hasMoreProduct = false;
+    }, 3000);
+  }
+
+  refreshProduct(event) {
+    console.log("homeDetail 上拉加载更多:", event);
+    setTimeout(() => {
+      // event.target.complete();
+      event.target.disabled = true;
+    }, 3000);
   }
 }

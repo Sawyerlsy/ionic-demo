@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ProductService } from 'src/app/core/services/product.service';
@@ -7,8 +7,7 @@ import { Product, SearchCondition } from 'src/app/shared';
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
-  styleUrls: ['./search.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./search.page.scss']
 })
 export class SearchPage implements OnInit {
 
@@ -20,7 +19,7 @@ export class SearchPage implements OnInit {
   /**
    * 商品
    */
-  product$: Observable<Product[]>;
+  products$: Observable<Product[]>;
 
   /**
    * 是否显示商品,默认不显示
@@ -32,10 +31,16 @@ export class SearchPage implements OnInit {
    */
   keyword: string;
 
+  /**
+   * 是否还有更多的商品,默认为true
+   */
+  hasMoreProduct = true;
+
+
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.product$ = this.searchTrigger$.pipe(
+    this.products$ = this.searchTrigger$.pipe(
       // wait 300 millisecond
       debounceTime(300),
 
@@ -58,24 +63,21 @@ export class SearchPage implements OnInit {
     this.searchTrigger$.next(condition);
   }
 
-  /**
-   * 下拉刷新
-   */
-  refresh(e) {
-    // TODO:下拉刷新
+  findMoreProduct(event) {
+    console.log("homeDetail 下拉刷新:", event);
     setTimeout(() => {
-      e && e.target.complete();
-    }, 2000);
+      // event.target.complete();
+      event.target.disabled = true;
+      this.hasMoreProduct = false;
+    }, 3000);
   }
 
-  /**
-   * 上拉加载更多
-   */
-  loadMore(e) {
-    // TODO:实现上拉加载更多
+  refreshProduct(event) {
+    console.log("homeDetail 上拉加载更多:", event);
     setTimeout(() => {
-      e && e.target.complete();
-    }, 2000);
+      event.target.complete();
+      // event.target.disabled = true;
+    }, 3000);
   }
 
 }

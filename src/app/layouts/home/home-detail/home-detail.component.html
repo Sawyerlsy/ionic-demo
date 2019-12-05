@@ -1,4 +1,9 @@
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+            refreshingText="正在刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>
     <ion-slides pager="true" scrollbar="false" [options]="sliderOptions" (ionSlideTouchEnd)="ionSlideTouchEnd($event)"
         #banner>
         <ion-slide *ngFor="let slider of (imageSliders$ | async)">
@@ -19,9 +24,9 @@
         <img [src]="ad.imageUrl" alt="" class="ad-image" />
     </div>
 
-    <app-product-list 
-    [products]="products$ | async" 
-    (loadMore)="loadMoreData($event)"
-    [hasInfiniteData]="hasInfiniteData"
-    ></app-product-list>
+    <app-product-list [products]="products$ | async" [hasMore]="hasMoreProduct"></app-product-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="findMoreProduct($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

@@ -1,16 +1,16 @@
 <div class="product-list-container" [ngClass]="displayMode">
-  <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)" *ngIf="enabled">
+  <!-- <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)" *ngIf="enabled">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
       refreshingText="正在刷新中...">
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
 
   <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col [size]="size" *ngFor="let product of products">
         <div class="product-item">
           <div class="product-image">
-            <ion-thumbnail slot="start">
+            <ion-thumbnail>
               <ion-img [src]="product.imageUrl"></ion-img>
             </ion-thumbnail>
           </div>
@@ -24,13 +24,11 @@
     </ion-row>
   </ion-grid>
 
-  <ion-infinite-scroll *ngIf="hasInfiniteData && enabled" threshold="100px" (ionInfinite)="findMoreProduct($event)">
+  <!-- <ion-infinite-scroll *ngIf="hasInfiniteData && enabled" threshold="100px" (ionInfinite)="findMoreProduct($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
-  <div class="baseline" *ngIf="!hasInfiniteData">
-    <span class="underline"></span>
-    <span class="text">我是有底线的</span>
-  </div>
+  </ion-infinite-scroll> -->
+  <ion-item class="ending-tips" *ngIf="!hasMore">
+    <ion-label>已经全部加载完毕</ion-label>
+  </ion-item>
 </div>

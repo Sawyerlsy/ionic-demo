@@ -28,7 +28,10 @@
           <div class="category-detail-list">
             <div class="category-detail-item" *ngFor="let item of categoryDetailList ">
               <div class="item-img">
-                <img [src]="imgSrc" />
+                <!-- <img [src]="imgSrc" /> -->
+                <ion-thumbnail>
+                  <ion-img [src]="imgSrc"></ion-img>
+                </ion-thumbnail>
               </div>
               <div class="item-label"><span>是范德萨水电费胜多负少</span></div>
             </div>

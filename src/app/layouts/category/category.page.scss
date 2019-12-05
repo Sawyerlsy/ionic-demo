@@ -76,7 +76,7 @@
         .item-img {
             text-align: center;
 
-            img {
+            ion-thumbnail {
                 width: $itemWidth * 0.8;
                 height: $itemWidth * 0.8;
             }

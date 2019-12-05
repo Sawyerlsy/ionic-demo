@@ -1,7 +1,7 @@
 .product-list-container {
     $border-radius: 8px;
     $item-background: #fff;
-    $container-background: #EDEDED;
+    $container-background: #F1F2F6;
 
     &.horizontal {
         ion-col {
@@ -95,31 +95,12 @@
         }
     }
 
-    .baseline {
+    .ending-tips {
+        --background: #F1F2F6;
+        --border-width: 0;
         text-align: center;
-        font-size: 0.8rem;
-        position: relative;
-        height: 25px;
-        z-index: 1;
-        background: $container-background;
-
-        .underline {
-            position: absolute;
-            z-index: 1;
-            display: block;
-            border-bottom: 1px dashed #333;
-            width: 100%;
-            top: calc((25px - 2px) / 2);
-        }
-
-        .text {
-            position: absolute;
-            z-index: 2;
-            margin: 0 auto;
-            width: 80px;
-            left: calc((100vw - 80px) / 2);
-            top: calc((25px - 20px) / 2);
-            background: $container-background;
-        }
+        --padding-start: 0;
+        font-size: 0.9rem;
+        color: #666666;
     }
 }

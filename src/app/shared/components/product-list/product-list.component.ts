@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../model/product';
 
 @Component({
@@ -15,22 +15,9 @@ export class ProductListComponent implements OnInit {
   @Input() products: Product[];
 
   /**
-   * 
-   */
-  @Output() loadMore = new EventEmitter();
-
-  @Output() refresh = new EventEmitter();
-
-  /**
-   * 控制是否启用下拉刷新和上拉加载更多
-   * <p>主要是为了修复在搜索页面,没有商品时仍然可以上拉和下拉的bug</p>
-   */
-  @Input() enabled = false;
-
-  /**
    * 是否还有更多的数据,默认为false
    */
-  @Input() hasInfiniteData = true;
+  @Input() hasMore = true;
 
   /**
    * 商品显示方式,默认为水平方向
@@ -44,7 +31,6 @@ export class ProductListComponent implements OnInit {
 
   @Input()
   public set displayMode(mode: string) {
-    console.log("input displayMode", mode);
     if (mode && mode === 'vertical') {
       this._displayMode = 'vertical';
       this.size = 6;
@@ -56,24 +42,6 @@ export class ProductListComponent implements OnInit {
 
   public get displayMode(): string {
     return this._displayMode;
-  }
-
-
-  /**
-   * 上拉加载更多数据,将event弹射出去,交由父组件处理
-   */
-  findMoreProduct(event) {
-    console.log("sub findMoreProduct...", event);
-    this.loadMore.emit(event);
-  }
-
-  /**
-   * 
-   * 下拉刷新
-   */
-  refreshProduct(event) {
-    console.log("下拉刷新...");
-    this.refresh.emit(event);
   }
 
 }
