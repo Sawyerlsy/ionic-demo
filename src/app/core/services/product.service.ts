@@ -25,13 +25,18 @@ export class ProductService {
     }
 
     // TODO: 完善搜索逻辑
-    return this.restService.findProduct(condition).pipe(map(res => {
-      if (res.isSuccess) {
-        console.log("issuccess...", res.data);
-        return res.data;
-      } else {
-        return [];
-      }
-    }));
+    return this.restService.findProduct(condition).pipe(map(res => res.isSuccess ? res.data : []));
   }
+
+  /**
+   * 
+   * 查找推荐商品
+   */
+  findRecommendProduct(): Observable<Product[]> {
+    // TODO: 实现推荐商品逻辑
+    const condition = { keyword: 'abc' };
+    return this.restService.findProduct(condition).pipe(map(res => res.isSuccess ? res.data : []));
+  }
+
+
 }

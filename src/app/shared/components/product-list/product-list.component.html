@@ -13,8 +13,7 @@
           <div class="product-content">
             <span class="product-title">{{ product?.title }}</span>
             <span class="product-tags"> </span>
-            <span class="product-price">{{ product?.price | currency: 'CNY':'symbol-narrow' }}</span>
-            <span class="product-extra"> </span>
+            <span class="product-price">门店价 <em>{{ product?.price | currency: 'CNY':'symbol-narrow' }}</em></span>
           </div>
         </div>
       </ion-col>

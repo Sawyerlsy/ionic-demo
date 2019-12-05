@@ -4,7 +4,7 @@
   </ion-toolbar>
   <ion-segment [(ngModel)]="tab">
     <ion-segment-button value="product">
-      <ion-label>产品</ion-label>
+      <ion-label>商品</ion-label>
     </ion-segment-button>
     <ion-segment-button value="shop">
       <ion-label>店铺</ion-label>
@@ -31,10 +31,17 @@
             <ion-item-option color="danger" (click)="remove(item)">取消收藏</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
+        <ion-card *ngIf="!favoriteProducts || favoriteProducts.length===0">
+          <ion-card-content>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>再去逛逛</ion-card-title>
+          </ion-card-header>
+        </ion-card>
       </ion-list>
 
       <ion-list *ngSwitchCase="'shop'">
-        <ion-item-sliding class="favorite-item" *ngFor="let item of favoriteProducts;let i=index;">
+        <ion-item-sliding class="favorite-item" *ngFor="let item of favoriteShops;let i=index;">
           <ion-item>
             <ion-thumbnail slot="start">
               <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
@@ -49,10 +56,22 @@
             <ion-item-option color="danger" (click)="remove(item)">取消收藏</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
+        <ion-card *ngIf="!favoriteShops || favoriteShops.length===0">
+          <ion-card-content>
+          </ion-card-content>
+          <ion-card-header>
+            <ion-card-title>再去逛逛</ion-card-title>
+          </ion-card-header>
+        </ion-card>
       </ion-list>
     </div>
     <div class="recommend-container">
-
+      <ion-item lines="full" class="recommend-title">
+        <ion-label>为你推荐</ion-label>
+      </ion-item>
+      <div>
+        <app-product-list [products]="recommendProducts$ | async" [displayMode]="'vertical'"></app-product-list>
+      </div>
     </div>
   </div>
 </ion-content>

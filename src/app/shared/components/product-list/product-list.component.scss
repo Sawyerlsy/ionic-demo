@@ -37,9 +37,13 @@
         .product-item {
             display: grid;
             grid-template-columns: auto;
-            grid-template-rows: 15rem 11rem;
+            grid-template-rows: 15rem 7rem;
             border-radius: 8px;
             background: $item-background;
+        }
+
+        .product-image {
+            place-self: center center;
         }
 
         .product-image img {
@@ -60,13 +64,12 @@
         padding: 0.5rem;
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 2.5rem 1fr 1fr 2fr;
+        grid-template-rows: 2.5rem 1fr 1fr;
         // grid-gap: 5px;
         grid-template-areas:
             'title'
             'tags'
-            'price'
-            'extra';
+            'price';
     }
 
     .product-title {
@@ -84,14 +87,12 @@
 
     .product-price {
         grid-area: price;
-        color: #d24749;
-
         font-size: 1rem;
-        font-weight: bold;
-    }
 
-    .product-extra {
-        grid-area: extra;
+        em {
+            color: #d24749;
+            font-weight: bold;
+        }
     }
 
     .baseline {

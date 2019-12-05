@@ -1,5 +1,8 @@
-import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { IonItemSliding } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { ProductService } from 'src/app/core/services/product.service';
+import { Product } from 'src/app/shared';
 
 @Component({
   selector: 'app-favorite',
@@ -21,18 +24,24 @@ export class FavoritePage implements OnInit {
   /**
    * 收藏的商品
    */
-  favoriteProducts = [1, 2, 3];
+  favoriteProducts = [];
 
   /**
    * 收藏的店铺
    */
   favoriteShops = [1, 2, 3];
 
+  /**
+   * 推荐商品
+   */
+  recommendProducts$: Observable<Product[]>;
+
   @ViewChildren(IonItemSliding) ionItemSlidings: QueryList<IonItemSliding>;
 
-  constructor(private elr: ElementRef, private renderer: Renderer2) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.recommendProducts$ = this.productService.findRecommendProduct();
   }
 
   /**

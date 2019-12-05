@@ -26,6 +26,29 @@ ion-segment-button {
     }
 }
 
+ion-card {
+    // border-bottom: 1px solid #f3f3f3;
+    // border-top: 1px solid #f3f3f3;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0 0 5px 0;
+    background: #fff;
+
+    ion-card-title {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: normal;
+    }
+
+    ion-card-content {
+        height: 9rem;
+    }
+}
+
+ion-list {
+    background: #F1F2F6;
+}
+
 .favorite-container {
 
     ion-thumbnail {
@@ -42,6 +65,10 @@ ion-segment-button {
     ion-icon {
         --color: #191A1B;
         font-size: 0.9rem;
+    }
+
+    .favorite-list {
+        margin-bottom: 0;
     }
 
     .favorite-content {
@@ -78,5 +105,11 @@ ion-segment-button {
             align-self: flex-start;
 
         }
+    }
+}
+
+.recommend-container {
+    .recommend-title {
+        border-left: 3px solid #CF282C;
     }
 }
