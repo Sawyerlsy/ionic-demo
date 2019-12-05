@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { IonItemSliding } from '@ionic/angular';
 
 @Component({
   selector: 'app-favorite',
@@ -12,8 +13,24 @@ export class FavoritePage implements OnInit {
    */
   tab = 'product';
 
+  /**
+   * 选项卡默认关闭
+   */
+  isOpened = false;
 
-  constructor() { }
+  /**
+   * 收藏的商品
+   */
+  favoriteProducts = [1, 2, 3];
+
+  /**
+   * 收藏的店铺
+   */
+  favoriteShops = [1, 2, 3];
+
+  @ViewChildren(IonItemSliding) ionItemSlidings: QueryList<IonItemSliding>;
+
+  constructor(private elr: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
   }
@@ -21,7 +38,17 @@ export class FavoritePage implements OnInit {
   /**
    * 显示或隐藏滑动选项
    */
-  toggleOption() {
-    console.log("toggle option...");
+  toggleOption(index) {
+    const currentSliding = this.ionItemSlidings.find((ele, idx) => idx === index);
+    if (currentSliding) {
+      currentSliding.open('end');
+    }
+  }
+
+  /**
+   * 移除
+   */
+  remove() {
+    console.log('remove...');
   }
 }
