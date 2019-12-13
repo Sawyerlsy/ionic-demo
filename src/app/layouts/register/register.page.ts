@@ -23,8 +23,8 @@ export class RegisterPage implements OnInit {
   }
 
   test() {
-    console.log("test...");
-    //this.router.navigate(['/category']);
+    console.log('test...');
+    // this.router.navigate(['/category']);
     // this.navCtrl.back();
     // this.navCtrl.navigateBack('/category');
     // this.navCtrl.setTopOutlet

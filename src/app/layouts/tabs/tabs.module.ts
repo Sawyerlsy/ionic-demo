@@ -19,11 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: () => import('../home').then(m => m.HomePageModule)
+        loadChildren: () => import('../home').then(m => m.HomePageModule),
+        canActivate: [LoginGuardService]
       },
       {
         path: 'category',
-        loadChildren: () => import('../category').then(m => m.CategoryPageModule)
+        loadChildren: () => import('../category').then(m => m.CategoryPageModule),
+        canActivate: [LoginGuardService]
       },
       {
         path: 'cart',
@@ -37,7 +39,8 @@ const routes: Routes = [
       },
       {
         path: 'my',
-        loadChildren: () => import('../my').then(m => m.MyPageModule)
+        loadChildren: () => import('../my').then(m => m.MyPageModule),
+        canActivate: [LoginGuardService]
       },
     ]
   }
