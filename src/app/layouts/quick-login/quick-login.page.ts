@@ -35,7 +35,7 @@ export class QuickLoginPage extends BaseUI implements OnInit {
   }
 
   getCode() {
-    this.http.get('http://localhost:8883/api/v1/phoneCode',
+    this.http.get('api/v1/phoneCode',
       {params: {phone: this.telphone, vercodeType: 'login'}}).subscribe((res: any) => {
       this.createToast(res.message);
     });
@@ -51,9 +51,9 @@ export class QuickLoginPage extends BaseUI implements OnInit {
 
     // TODO: 私密信息不能直接原文传输,需要对密码进行加密
     const params = { username: this.telphone, vcode: this.verifyCode };
-    const loading = await this.createLoading();
-    this.http.post('http://localhost:8883/api/v1/mobileLogin', params).subscribe((res: any) => {
-      loading.dismiss();
+    // const loading = await this.createLoading();
+    this.http.post('api/v1/mobileLogin', params).subscribe((res: any) => {
+      // loading.dismiss();
       console.log(res);
       // const data = {username: params.username, };
       if (res.success) {

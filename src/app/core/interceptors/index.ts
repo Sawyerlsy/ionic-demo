@@ -1,2 +1,2 @@
-export * from './notification.interceptor';
+export * from './default.interceptor';
 export * from './param.interceptor';

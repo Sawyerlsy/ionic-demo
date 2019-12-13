@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import localeZh from '@angular/common/locales/zh-Hans';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
@@ -17,12 +17,14 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NotificationInterceptor } from './core/interceptors/notification.interceptor';
-import { ParamInterceptor } from './core/interceptors/param.interceptor';
+import { DefaultInterceptor, ParamInterceptor } from './core/interceptors';
 import { RegisterPageModule } from './layouts/register';
 import { SharedModule } from './shared';
+import {StartupService} from "./core/startup/startup.service";
 
-
+export function StartupServiceFactory(startupService: StartupService): Function {
+  return () => startupService.load();
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,7 +53,7 @@ import { SharedModule } from './shared';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: NotificationInterceptor,
+      useClass: DefaultInterceptor,
       multi: true
     },
     {
@@ -64,7 +66,14 @@ import { SharedModule } from './shared';
     File,
     FilePath,
     FileTransfer,
-    AppVersion
+    AppVersion,
+    StartupService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: StartupServiceFactory,
+      deps: [StartupService],
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
