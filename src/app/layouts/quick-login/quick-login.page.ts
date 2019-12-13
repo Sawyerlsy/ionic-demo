@@ -4,9 +4,12 @@ import {
   NavController,
   ToastController
 } from '@ionic/angular';
-import {UserEvent} from '../../core/services/event.service';
+import {EventService, UserEvent} from '../../core/services/event.service';
 import {ValidateUtil} from '../../shared/validate';
 import {BaseUI} from '../../core/BaseUI';
+import {RestService} from '../../core/services/rest.service';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from "../../core/services/auth.service";
 
 @Component({
   selector: 'app-quick-login',
@@ -18,15 +21,24 @@ export class QuickLoginPage extends BaseUI implements OnInit {
 
   telphone: string;
   verifyCode: string;
-
   constructor(public toastController: ToastController,
               public loadingController: LoadingController,
+              public http: HttpClient,
+              public authService: AuthService,
+              public eventService: EventService,
               private navCtrl: NavController) {
     super(loadingController, toastController);
   }
 
   ngOnInit() {
 
+  }
+
+  getCode() {
+    this.http.get('http://localhost:8883/api/v1/phoneCode',
+      {params: {phone: this.telphone, vercodeType: 'login'}}).subscribe((res: any) => {
+      this.createToast(res.message);
+    });
   }
 
   /**
@@ -38,21 +50,32 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     }
 
     // TODO: 私密信息不能直接原文传输,需要对密码进行加密
-    const params = { username: this.telphone, verifyCode: this.verifyCode };
+    const params = { username: this.telphone, vcode: this.verifyCode };
     const loading = await this.createLoading();
-    this.restService.login(params).subscribe(res => {
+    this.http.post('http://localhost:8883/api/v1/mobileLogin', params).subscribe((res: any) => {
       loading.dismiss();
-      if (res.isSuccess) {
-        this.authService.authorization(res.data);
-        this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
+      console.log(res);
+      // const data = {username: params.username, };
+      if (res.success) {
+        const user = Object.assign(res.data.user, {token: res.data.token});
+        this.authService.authorization(user);
+        this.eventService.broadcast(UserEvent.SIGN_IN, user);
         this.navCtrl.back();
-      } else {
-        this.createToast(res.message);
       }
-    }, error => {
-      loading.dismiss();
-      this.createToast('登录失败,请稍后重试');
     });
+    // this.restService.login(params).subscribe(res => {
+    //   loading.dismiss();
+    //   if (res.isSuccess) {
+    //     this.authService.authorization(res.data);
+    //     this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
+    //     this.navCtrl.back();
+    //   } else {
+    //     this.createToast(res.message);
+    //   }
+    // }, error => {
+    //   loading.dismiss();
+    //   this.createToast('登录失败,请稍后重试');
+    // });
   }
 
   /**
@@ -68,7 +91,7 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     }
 
     // check password
-    const isValidPassword = this.password && this.password.length >= 6 && this.password.length <= 16;
+    const isValidPassword = this.verifyCode && this.verifyCode.length == 6;
     if (!isValidPassword) {
       this.createToast('密码格式不正确');
       return false;
