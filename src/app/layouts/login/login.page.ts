@@ -93,7 +93,7 @@ export class LoginPage extends BaseUI implements OnInit {
     }
 
     // check password
-    const isValidPassword = this.password && this.password.length >= 8 && this.password.length <= 16;
+    const isValidPassword = this.password && this.password.length >= 6 && this.password.length <= 16;
     if (!isValidPassword) {
       this.createToast('密码格式不正确');
       return false;
