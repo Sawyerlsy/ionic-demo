@@ -48,20 +48,19 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     if (!this.validateLoginParam()) {
       return false;
     }
-
     // TODO: 私密信息不能直接原文传输,需要对密码进行加密
     const params = { username: this.telphone, vcode: this.verifyCode };
-    // const loading = await this.createLoading();
+    const loading = await this.createLoading();
     this.http.post('api/v1/mobileLogin', params).subscribe((res: any) => {
-      // loading.dismiss();
+      loading.dismiss();
       console.log(res);
-      // const data = {username: params.username, };
-      if (res.success) {
-        const user = Object.assign(res.data.user, {token: res.data.token});
-        this.authService.authorization(user);
-        this.eventService.broadcast(UserEvent.SIGN_IN, user);
-        this.navCtrl.back();
+      if (!res.success) { // 失败的情况拦截器已经处理，一般不需要处理
+        return;
       }
+      const user = Object.assign(res.data.user, {token: res.data.token});
+      this.authService.authorization(user);
+      this.eventService.broadcast(UserEvent.SIGN_IN, user);
+      this.goBack(); // todo: 跳转到首页
     });
     // this.restService.login(params).subscribe(res => {
     //   loading.dismiss();
@@ -86,14 +85,14 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     // check username
     const isValidUsername = ValidateUtil.isMobile(this.telphone);
     if (!isValidUsername) {
-      this.createToast('请输入有效的用户名');
+      this.createToast('请输入有效的手机号码');
       return false;
     }
 
     // check password
-    const isValidPassword = this.verifyCode && this.verifyCode.length == 6;
+    const isValidPassword = this.verifyCode && this.verifyCode.length === 6;
     if (!isValidPassword) {
-      this.createToast('密码格式不正确');
+      this.createToast('验证码格式不正确');
       return false;
     }
     return true;

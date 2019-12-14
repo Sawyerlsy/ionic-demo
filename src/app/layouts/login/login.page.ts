@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { EventService, UserEvent } from 'src/app/core/services/event.service';
 import { RestService } from 'src/app/core/services/rest.service';
 import { ValidateUtil } from 'src/app/shared/validate';
+import {HttpClient} from "@angular/common/http";
 // import { slideToRight, slideToTop } from '../../shared/animations/animations';
 
 /**
@@ -38,6 +39,7 @@ export class LoginPage extends BaseUI implements OnInit {
     private navCtrl: NavController,
     private eventService: EventService,
     private restService: RestService,
+    private http: HttpClient,
     private authService: AuthService) {
     super(loadingController, toastController);
   }
@@ -64,7 +66,17 @@ export class LoginPage extends BaseUI implements OnInit {
     // TODO: 私密信息不能直接原文传输,需要对密码进行加密
     const params = { username: this.username, password: this.password };
     const loading = await this.createLoading();
-    this.restService.login(params).subscribe(res => {
+    this.http.post('api/v1/mobileLogin', params).subscribe((res: any) => {
+      loading.dismiss();
+      if (!res.success) {
+        return;
+      }
+      const user = Object.assign(res.data.user, {token: res.data.token});
+      this.authService.authorization(user);
+      this.eventService.broadcast(UserEvent.SIGN_IN, user);
+      this.navCtrl.back();
+    });
+    /*this.restService.login(params).subscribe(res => {
       loading.dismiss();
       if (res.isSuccess) {
         this.authService.authorization(res.data);
@@ -76,7 +88,7 @@ export class LoginPage extends BaseUI implements OnInit {
     }, error => {
       loading.dismiss();
       this.createToast('登录失败,请稍后重试');
-    });
+    });*/
   }
 
   /**
