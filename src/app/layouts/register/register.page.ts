@@ -39,11 +39,11 @@ export class RegisterPage extends BaseUI implements OnInit {
 
   confirmValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
-      if (this.form && this.form.controls.password.value) {
+      if (this.form && this.form.controls.loginPwd.value) {
         return {required: true};
       }
       return {};
-    } else if (control.value !== this.form.controls.password.value) {
+    } else if (control.value !== this.form.controls.loginPwd.value) {
       return {confirm: true, error: true};
     }
   }
