@@ -37,7 +37,9 @@ export class QuickLoginPage extends BaseUI implements OnInit {
   getCode() {
     this.http.get('api/v1/phoneCode',
       {params: {phone: this.telphone, vercodeType: 'login'}}).subscribe((res: any) => {
-      this.createToast(res.message);
+      if (res.success) {
+        this.createToast(res.message);
+      }
     });
   }
 

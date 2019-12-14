@@ -1,13 +1,13 @@
-<ion-header >
-  <ion-toolbar >
-    <ion-buttons  slot="start">
-      <ion-button  color="medium" [appGoTo]="'back'">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" [appGoTo]="'back'">
         <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>注册</ion-title>
-    <ion-buttons  slot="end">
-      <ion-button  color="medium" [appGoTo]="'home'">
+    <ion-buttons slot="end">
+      <ion-button color="medium" [appGoTo]="'home'">
         <ion-icon size="small" slot="icon-only" name="home"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -20,40 +20,99 @@
     <ion-img class="login-logo" src="assets/avatars/avatar005.png"></ion-img>
   </div>
 
-  <ion-list lines='none' class="login-box">
-    <ion-item >
-      <ion-label slot="start" style="margin-right: 1rem;" color="dark">
-        +86
-      </ion-label>
-      <ion-input autocomplete="off" type="text" debounce="300" placeholder="手机号" [(ngModel)]="telphone"></ion-input>
-    </ion-item>
-
-    <ion-item-group >
-      <ion-item >
-        <ion-input autocomplete="off" type='text' debounce="300" placeholder="请输入验证码" [(ngModel)]="verifyCode"></ion-input>
+  <!--<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" novalidate>
+      <ion-item [class.error]="!username.valid && username.touched">
+          <ion-label>用户名：</ion-label>
+          <ion-input type="tel" placeholder="请输入用户名" value="" formControlName="username" clearInput=true></ion-input>
       </ion-item>
-      <ion-button style="height: 44px;" color="danger" expand="full">获取验证码</ion-button>
-    </ion-item-group>
+      <div *ngIf="username.hasError('required') && username.touched" class="error-message">请输入用户名</div>
+      <div *ngIf="(username.hasError('minlength')||username.hasError('maxlength')||username.hasError('pattern')) && username.touched" class="error-message">请输入正确的手机号</div>
+      <ion-item>
+          <ion-label>密 码：</ion-label>
+          <ion-input type="password" placeholder="请输入密码" value="" formControlName="password" clearInput=true></ion-input>
+      </ion-item>
+      <div *ngIf="password.hasError('required') && password.touched" class="error-message">请输入密码</div>
+      <div *ngIf="(password.hasError('minlength')) && password.touched" class="error-message">密码长度最少为六位</div>
+      <button ion-button block color="secondary" type="submit" [disabled]="!loginForm.valid">登录</button>
+  </form>-->
+  <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+    <ion-list lines='none' class="login-box">
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="dark">
+          +86
+        </ion-label>
+        <ion-input autocomplete="off" type="text" debounce="300"
+                   placeholder="手机号" formControlName="phone"></ion-input>
+      </ion-item>
+      <div
+          *ngIf="form.get('phone').hasError('required') && form.get('phone').touched"
+          class="error-message">请输入手机号
+      </div>
+      <div
+          *ngIf="form.get('phone').hasError('pattern') && form.get('phone').touched"
+          class="error-message">请输入正确的手机号
+      </div>
+      <ion-item-group>
+        <ion-item>
+          <ion-input autocomplete="off" type='text' debounce="300"
+                     placeholder="请输入验证码" formControlName="vcode"></ion-input>
+        </ion-item>
+        <ion-button style="height: 44px;" color="danger" expand="full"
+                    (click)="getCode()">获取验证码
+        </ion-button>
+      </ion-item-group>
+      <div
+          *ngIf="form.get('vcode').hasError('required') && form.get('vcode').touched"
+          class="error-message">请输入验证码
+      </div>
+      <div
+          *ngIf="form.get('vcode').hasError('pattern') && form.get('vcode').touched"
+          class="error-message">验证码为6位数字
+      </div>
 
-    <ion-item >
-      <ion-label slot="start" style="margin-right: 1rem;" color="medium">
-        <ion-icon name="lock"></ion-icon>
-      </ion-label>
-      <ion-input autocomplete="off" type='password' debounce="300" placeholder="请输入密码" [(ngModel)]="password"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="medium">
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input autocomplete="off" type='password' debounce="300"
+                   placeholder="请输入密码" formControlName="password"
+                   (ngModelChange)="validateConfirmPassword()"></ion-input>
+      </ion-item>
+      <div
+          *ngIf="form.get('password').hasError('required') && form.get('password').touched"
+          class="error-message">请输入密码
+      </div>
+      <div
+          *ngIf="form.get('password').hasError('minLength') && form.get('password').touched"
+          class="error-message">密码长度不能小于6
+      </div>
 
-    <ion-item  style="margin-bottom: 0rem;">
-      <ion-label slot="start" style="margin-right: 1rem;" color="medium">
-        <ion-icon name="lock"></ion-icon>
-      </ion-label>
-      <ion-input autocomplete="off" type='password' debounce="300" placeholder="请确认密码" [(ngModel)]="confirmPassword"></ion-input>
-    </ion-item>
+      <ion-item style="margin-bottom: 0rem;">
+        <ion-label slot="start" style="margin-right: 1rem;" color="medium">
+          <ion-icon name="lock"></ion-icon>
+        </ion-label>
+        <ion-input autocomplete="off" type='password' debounce="300"
+                   placeholder="请确认确认密码" formControlName="confirm"></ion-input>
+      </ion-item>
+      <div
+          *ngIf="form.get('confirm').hasError('required') && form.get('password').touched"
+          class="error-message">请输入确认密码
+      </div>
+      <div
+          *ngIf="form.get('confirm').hasError('confirm') && form.get('password').touched"
+          class="error-message">两次输入的密码不一样
+      </div>
 
-    <ion-item  class="agreement">
-      <ion-label>我已阅读并同意 <a class="agreement-link" [routerLink]="'/quicklogin'">《用户注册协议》</a></ion-label>
-      <ion-checkbox slot="start" color="danger" ></ion-checkbox>
-    </ion-item>
+      <ion-item class="agreement">
+        <ion-label>我已阅读并同意 <a class="agreement-link"
+                              [routerLink]="'/quicklogin'">《用户注册协议》</a>
+        </ion-label>
+        <ion-checkbox slot="start" color="danger"></ion-checkbox>
+      </ion-item>
 
-    <ion-button  color="danger" expand="full" class="submit">注册</ion-button>
-  </ion-list>
+      <ion-button [disabled]="!form.valid" type="submit" color="danger"
+                  expand="full" class="submit">注册
+      </ion-button>
+    </ion-list>
+  </form>
 </ion-content>
