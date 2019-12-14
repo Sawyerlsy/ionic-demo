@@ -52,8 +52,8 @@ export class RegisterPage extends BaseUI implements OnInit {
     this.http.get('api/v1/phoneCode',
       {params: {phone: this.form.controls.phone.value, vercodeType: 'register'}}).subscribe((res: any) => {
       if (res.success) {
-        this.createToast(res.message);
-        // todo: 跳转到登录界面
+        this.createToast(res.data);
+        this.navCtrl.navigateBack(['/login']);
       }
     });
   }

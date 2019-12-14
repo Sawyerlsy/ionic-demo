@@ -53,7 +53,7 @@ export class DefaultInterceptor implements HttpInterceptor {
       message: msg,
       duration: durationMs,
       mode: 'md',
-      position: pos ? pos : 'middle',
+      position: pos ? pos : 'top',
       cssClass: 'custom-toast',
       showCloseButton: showCloseBtn,
       closeButtonText: '关闭'

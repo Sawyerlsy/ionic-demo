@@ -38,7 +38,7 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     this.http.get('api/v1/phoneCode',
       {params: {phone: this.telphone, vercodeType: 'login'}}).subscribe((res: any) => {
       if (res.success) {
-        this.createToast(res.message);
+        this.createToast(res.data);
       }
     });
   }
@@ -62,7 +62,7 @@ export class QuickLoginPage extends BaseUI implements OnInit {
       const user = Object.assign(res.data.user, {token: res.data.token});
       this.authService.authorization(user);
       this.eventService.broadcast(UserEvent.SIGN_IN, user);
-      this.goBack(); // todo: 跳转到首页
+      this.navCtrl.navigateBack(['/tabs']);
     });
     // this.restService.login(params).subscribe(res => {
     //   loading.dismiss();
