@@ -75,15 +75,15 @@
           <ion-icon name="lock"></ion-icon>
         </ion-label>
         <ion-input autocomplete="off" type='password' debounce="300"
-                   placeholder="请输入密码" formControlName="password"
+                   placeholder="请输入密码" formControlName="loginPwd"
                    (ngModelChange)="validateConfirmPassword()"></ion-input>
       </ion-item>
       <div
-          *ngIf="form.get('password').hasError('required') && form.get('password').touched"
+          *ngIf="form.get('loginPwd').hasError('required') && form.get('loginPwd').touched"
           class="error-message">请输入密码
       </div>
       <div
-          *ngIf="form.get('password').hasError('minLength') && form.get('password').touched"
+          *ngIf="form.get('loginPwd').hasError('minLength') && form.get('loginPwd').touched"
           class="error-message">密码长度不能小于6
       </div>
 
@@ -95,11 +95,11 @@
                    placeholder="请确认确认密码" formControlName="confirm"></ion-input>
       </ion-item>
       <div
-          *ngIf="form.get('confirm').hasError('required') && form.get('password').touched"
+          *ngIf="form.get('confirm').hasError('required') && form.get('confirm').touched"
           class="error-message">请输入确认密码
       </div>
       <div
-          *ngIf="form.get('confirm').hasError('confirm') && form.get('password').touched"
+          *ngIf="form.get('confirm').hasError('confirm') && form.get('confirm').touched"
           class="error-message">两次输入的密码不一样
       </div>
 

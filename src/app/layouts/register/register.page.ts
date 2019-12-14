@@ -28,7 +28,7 @@ export class RegisterPage extends BaseUI implements OnInit {
     this.form = formBuilder.group({
       phone: ['', Validators.compose([Validators.required, Validators.pattern(ValidateUtil.mobilePattern)])],
       vcode: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{6}')])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      loginPwd: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       confirm: ['', Validators.compose([Validators.required, this.confirmValidator])]
     });
   }
