@@ -24,13 +24,13 @@
             ion-item {
                 text-align: center;
                 --background: $leftContainerBgColor;
-                --border-color: red;
                 --padding-end: 10px;
                 // --padding-start: 10px;
             }
 
             ion-item.selected {
                 --background: #fff;
+                --border-color: red;
             }
 
             ion-label {

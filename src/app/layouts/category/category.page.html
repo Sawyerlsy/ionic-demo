@@ -9,31 +9,27 @@
   <div class="category-container">
     <div class="left-container">
       <ion-list class="category-list" lines="none">
-        <ion-item>
-          <ion-label>居具</ion-label>
-        </ion-item>
-        <ion-item lines="inset" class="selected">
-          <ion-label>居家家具</ion-label>
-        </ion-item>
-        <ion-item *ngFor="let item of categoryDetailList ">
-          <ion-label>居家家具</ion-label>
+        <ion-item lines="inset" *ngFor="let category of leftCategoryList$ | async;let i=index;"
+          [ngClass]="{'selected': category.id === (selectedCategory$ | async)}"
+          (click)="selectedCategory(category.id)">
+          <ion-label>{{ category.name }}</ion-label>
         </ion-item>
       </ion-list>
     </div>
 
     <div class="right-container">
       <div class="category-detail">
-        <div class="category-detail-box" *ngFor="let item of categoryDetailList ">
-          <span class="category-detail-header">水电费是否</span>
+        <div class="category-detail-box">
+          <span class="category-detail-header"> 分类 </span>
           <div class="category-detail-list">
-            <div class="category-detail-item" *ngFor="let item of categoryDetailList ">
+            <div class="category-detail-item" *ngFor="let item of rightCategoryList$ | async ">
               <div class="item-img">
                 <!-- <img [src]="imgSrc" /> -->
                 <ion-thumbnail>
                   <ion-img [src]="imgSrc"></ion-img>
                 </ion-thumbnail>
               </div>
-              <div class="item-label"><span>是范德萨水电费胜多负少</span></div>
+              <div class="item-label"><span>{{ item.name }}</span></div>
             </div>
           </div>
         </div>

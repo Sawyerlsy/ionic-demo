@@ -3,7 +3,7 @@
  * @author Sawyer
  */
 export interface Product {
-    id: number;
+    id: string;
     imageUrl: string;
     title: string;
     tags: string[];
@@ -19,4 +19,13 @@ export interface Product {
 export interface SearchCondition {
     keyword: string;
     baseSort?: string;
+}
+
+/**
+ * 商品分类信息
+ */
+export interface ProductCategory {
+    id: string;
+    name: string;
+    imageUrl: string;
 }
