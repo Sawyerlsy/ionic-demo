@@ -65,9 +65,9 @@ export class QuickLoginPage extends BaseUI implements OnInit {
 
       // 将token放入用户信息中
       const user = Object.assign(res.data.user, { token: res.data.token });
-      console.log(user);
-      this.authService.authorization(user);
-      this.eventService.broadcast(UserEvent.SIGN_IN, user);
+      const appUser = this.userService.transfomRemoteUser(user);
+      this.authService.authorization(appUser);
+      this.eventService.broadcast(UserEvent.SIGN_IN, appUser);
       // TODO: 登录成功后应该返回原来的地址
       this.navCtrl.navigateRoot(['']);
     }, error => {
@@ -108,6 +108,5 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     const isMobile = this.isMobile();
     return isMobile && this.allowSendCode;
   }
-
 
 }

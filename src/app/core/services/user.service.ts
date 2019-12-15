@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResult } from 'src/app/shared/model/http';
+import { User } from 'src/app/shared/model/user';
 
 /**
  * 用户服务
@@ -43,6 +44,29 @@ export class UserService {
    */
   getMessageCode(mobile: string) {
     return this.http.get<ApiResult<any>>('api/v1/messageCode', { params: { phone: mobile } });
+  }
+
+  /**
+   * 将后台user对象转为app端友好的User
+   * @param user
+   */
+  transfomRemoteUser(remoteUser: any): User {
+    let appUser: User = { username: '', mobile: '' };
+    appUser.username = remoteUser.username;
+    appUser.mobile = remoteUser.phone;
+    appUser.token = remoteUser.token;
+    appUser.userStatus = remoteUser.ustatus;
+
+    // 厂商信息
+    appUser.isCustomer = remoteUser.isCustomer;
+    appUser.isFactory = remoteUser.isFactory;
+    appUser.isProxy = remoteUser.isProxy;
+
+    // 头像、姓名
+    const deepUser = remoteUser['sysrUserAlone'];
+    appUser.realName = deepUser ? deepUser.realName : '';
+    appUser.avatar = deepUser ? deepUser.avatar : '';
+    return appUser;
   }
 
 }
