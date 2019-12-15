@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { LoginGuardService } from '../../core/services/login-guard.service';
 import { TabsPage } from './tabs.page';
 
 
@@ -19,28 +18,23 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: () => import('../home').then(m => m.HomePageModule),
-        canActivate: [LoginGuardService]
+        loadChildren: () => import('../home').then(m => m.HomePageModule)
       },
       {
         path: 'category',
-        loadChildren: () => import('../category').then(m => m.CategoryPageModule),
-        canActivate: [LoginGuardService]
+        loadChildren: () => import('../category').then(m => m.CategoryPageModule)
       },
       {
         path: 'cart',
-        loadChildren: () => import('../cart').then(m => m.CartPageModule),
-        canActivate: [LoginGuardService]
+        loadChildren: () => import('../cart').then(m => m.CartPageModule)
       },
       {
         path: 'favorite',
-        loadChildren: () => import('../favorite').then(m => m.FavoritePageModule),
-        canActivate: [LoginGuardService]
+        loadChildren: () => import('../favorite').then(m => m.FavoritePageModule)
       },
       {
         path: 'my',
-        loadChildren: () => import('../my').then(m => m.MyPageModule),
-        canActivate: [LoginGuardService]
+        loadChildren: () => import('../my').then(m => m.MyPageModule)
       },
     ]
   }

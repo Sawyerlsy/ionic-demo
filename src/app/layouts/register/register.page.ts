@@ -15,10 +15,21 @@ export class RegisterPage extends BaseUI implements OnInit {
 
   form: FormGroup;
 
+  /**
+   * 是否允许发送验证码,默认为true
+   */
+  allowSendCode = true;
+
+  /**
+   * 是否同意协议
+   */
+  agreement = false;
+
   constructor(public toastController: ToastController,
     public loadingController: LoadingController,
     private userService: UserService,
-    private formBuilder: FormBuilder, private navCtrl: NavController) {
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController) {
     super(loadingController, toastController);
     this.form = formBuilder.group({
       mobile: ['', Validators.compose([Validators.required, Validators.pattern(ValidateUtil.mobilePattern)])],
@@ -50,9 +61,10 @@ export class RegisterPage extends BaseUI implements OnInit {
    * 获取验证码
    */
   getMessageCode() {
-    this.userService.getMessageCode(this.form.controls.phone.value).subscribe(res => {
+    this.allowSendCode = false;
+    this.userService.getMessageCode(this.form.controls.mobile.value).subscribe(res => {
       if (res.success) {
-        this.createToast(res.data);
+        this.createToast(res.message);
       }
     });
   }
@@ -64,6 +76,7 @@ export class RegisterPage extends BaseUI implements OnInit {
     console.log('form value:', value);
     const loading = await this.createLoading();
     const params = this.form.value;
+    params.phone = params.mobile;
     this.userService.signUp(params, this.form.controls.vcode.value).subscribe(res => {
       loading.dismiss();
       this.createToast(res.message);
@@ -78,6 +91,19 @@ export class RegisterPage extends BaseUI implements OnInit {
       loading.dismiss();
       this.createToast('登录失败,请稍后重试');
     });
+  }
+
+
+  isMobile() {
+    return ValidateUtil.isMobile(this.form.controls.mobile.value);
+  }
+
+  /**
+   * 尝试启用验证码按钮
+   */
+  tryToEnabledCodeButton() {
+    const isMobile = this.isMobile();
+    return isMobile && this.allowSendCode;
   }
 
 }

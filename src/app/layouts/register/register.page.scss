@@ -57,4 +57,26 @@
             --size: 1.1rem;
         }
     }
+
+    .error-message {
+        color: #d24749;
+        font-size: 0.9rem;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 5px;
+    }
+
+    ion-item.code {
+        --inner-padding-end: 0;
+
+        ion-button {
+            height: 100%;
+            width: 7rem;
+            margin: 0;
+        }
+    }
+
+    ion-item.agreement {
+        --background-activated: transparent;
+    }
 }

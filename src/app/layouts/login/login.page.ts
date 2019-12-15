@@ -71,9 +71,12 @@ export class LoginPage extends BaseUI implements OnInit {
 
       // 将token放入用户信息中
       const user = Object.assign(res.data.user, { token: res.data.token });
-      this.authService.authorization(res.data);
-      this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
-      this.navCtrl.back();
+      console.log(user);
+      this.authService.authorization(user);
+      this.eventService.broadcast(UserEvent.SIGN_IN, user);
+
+      // TODO: 登录成功后应该返回原来的地址
+      this.navCtrl.navigateRoot(['']);
     }, error => {
       // 必须在发生异常后关闭loading,否则loading不会消失
       loading.dismiss();

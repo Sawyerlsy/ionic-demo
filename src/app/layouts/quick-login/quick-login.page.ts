@@ -16,12 +16,18 @@ export class QuickLoginPage extends BaseUI implements OnInit {
 
   mobile: string;
   verifyCode: string;
+
+  /**
+   * 是否允许发送验证码,默认为true
+   */
+  allowSendCode = true;
+
   constructor(public toastController: ToastController,
-              public loadingController: LoadingController,
-              public userService: UserService,
-              public authService: AuthService,
-              public eventService: EventService,
-              private navCtrl: NavController) {
+    public loadingController: LoadingController,
+    public userService: UserService,
+    public authService: AuthService,
+    public eventService: EventService,
+    private navCtrl: NavController) {
     super(loadingController, toastController);
   }
 
@@ -33,9 +39,10 @@ export class QuickLoginPage extends BaseUI implements OnInit {
    * 获取验证码
    */
   getMessageCode() {
+    this.allowSendCode = false;
     this.userService.getMessageCode(this.mobile).subscribe(res => {
       if (res.success) {
-        this.createToast(res.data);
+        this.createToast(res.message);
       }
     });
   }
@@ -58,9 +65,11 @@ export class QuickLoginPage extends BaseUI implements OnInit {
 
       // 将token放入用户信息中
       const user = Object.assign(res.data.user, { token: res.data.token });
-      this.authService.authorization(res.data);
-      this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
-      this.navCtrl.back();
+      console.log(user);
+      this.authService.authorization(user);
+      this.eventService.broadcast(UserEvent.SIGN_IN, user);
+      // TODO: 登录成功后应该返回原来的地址
+      this.navCtrl.navigateRoot(['']);
     }, error => {
       // 必须在发生异常后关闭loading,否则loading不会消失
       loading.dismiss();
@@ -74,8 +83,7 @@ export class QuickLoginPage extends BaseUI implements OnInit {
   validateLoginParam(): boolean {
 
     // check username
-    const isValidUsername = ValidateUtil.isMobile(this.mobile);
-    if (!isValidUsername) {
+    if (!this.isMobile()) {
       this.createToast('请输入有效的手机号码');
       return false;
     }
@@ -89,8 +97,17 @@ export class QuickLoginPage extends BaseUI implements OnInit {
     return true;
   }
 
-  goBack() {
-    this.navCtrl.back();
+  isMobile() {
+    return ValidateUtil.isMobile(this.mobile);
   }
+
+  /**
+   * 尝试启用验证码按钮
+   */
+  tryToEnabledCodeButton() {
+    const isMobile = this.isMobile();
+    return isMobile && this.allowSendCode;
+  }
+
 
 }

@@ -31,9 +31,13 @@
         }
     }
 
-    ion-item-group {
-        display: grid;
-        grid-template-columns: 47% 48%;
-        column-gap: 5%;
+    ion-item.code {
+        --inner-padding-end: 0;
+
+        ion-button {
+            height: 100%;
+            width: 7rem;
+            margin: 0;
+        }
     }
 }

@@ -14,7 +14,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="login-content">
   <div>
     <ion-img class="login-logo" src="assets/avatars/avatar005.png"></ion-img>
@@ -29,15 +28,19 @@
         </ion-input>
       </ion-item>
 
-      <ion-item-group>
-        <ion-item slot="start">
-          <ion-input name="verifyCode" autocomplete="off" type='text' debounce="300" placeholder="验证码"
-            [(ngModel)]="verifyCode"></ion-input>
-        </ion-item>
-        <ion-button style="height: 44px;" slot="end" color="danger" expand="full" (click)="getMessageCode()">发送验证码</ion-button>
-      </ion-item-group>
-
-      <ion-button type="submit" color="danger" expand="full" class="submit">快速登录</ion-button>
+      <ion-item class="code">
+        <ion-input name="verifyCode" autocomplete="off" type='text' debounce="300" placeholder="验证码"
+          [(ngModel)]="verifyCode"></ion-input>
+        <ion-button slot="end" color="danger" expand="full" (click)="getMessageCode()"
+          [disabled]="!tryToEnabledCodeButton()">
+          <ion-label *ngIf="allowSendCode">发送验证码</ion-label>
+          <ion-label *ngIf="!allowSendCode">
+            <app-count-down [start]="120" (finally)="allowSendCode = true"></app-count-down>
+          </ion-label>
+        </ion-button>
+      </ion-item>
+      <ion-button type="submit" color="danger" expand="full" class="submit" [disabled]="!verifyCode || !mobile">快速登录
+      </ion-button>
     </ion-list>
   </form>
 </ion-content>

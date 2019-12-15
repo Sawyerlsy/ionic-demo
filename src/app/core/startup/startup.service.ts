@@ -1,8 +1,7 @@
-import {Injectable, Injector, Inject} from '@angular/core';
-import {AuthService} from "../services/auth.service";
-import {User} from "../../shared/model/user";
-import {LoadingController} from "@ionic/angular";
-import {DefaultInterceptor} from "../interceptors";
+import { Injectable } from '@angular/core';
+import { LoadingController } from "@ionic/angular";
+import { User } from "../../shared/model/user";
+import { AuthService } from "../services/auth.service";
 
 /**
  * 用于应用启动时

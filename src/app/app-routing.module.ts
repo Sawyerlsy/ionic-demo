@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { LoginGuardService } from './core/services/login-guard.service';
 
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./layouts/tabs').then(m => m.TabsPageModule)
+    loadChildren: () => import('./layouts/tabs').then(m => m.TabsPageModule),
+    canActivate: [LoginGuardService]
   },
   {
     path: 'login',
@@ -22,15 +24,15 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    loadChildren: () => import('./layouts/search').then(m => m.SearchPageModule)
+    loadChildren: () => import('./layouts/search').then(m => m.SearchPageModule),
   },
   {
     path: 'scan',
-    loadChildren: () => import('./layouts/scan').then(m => m.ScanPageModule)
+    loadChildren: () => import('./layouts/scan').then(m => m.ScanPageModule),
   },
   {
     path: 'personal',
-    loadChildren: () => import('./layouts/my/personal').then(m => m.PersonalPageModule)
+    loadChildren: () => import('./layouts/my/personal').then(m => m.PersonalPageModule),
   },
   {
     path: 'versions',

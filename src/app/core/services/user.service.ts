@@ -20,7 +20,7 @@ export class UserService {
    * @param verifyCode 验证码
    */
   signInByMobile(mobile: string, verifyCode: string): Observable<ApiResult<any>> {
-    return this.http.post<ApiResult<any>>('api/v1/mobileLogin', { params: { username: mobile, vcode: verifyCode } });
+    return this.http.post<ApiResult<any>>('api/v1/mobileLogin', { username: mobile, vcode: verifyCode });
   }
 
   /**
@@ -28,7 +28,7 @@ export class UserService {
    */
   signInByUsername(username: string, password: string): Observable<ApiResult<any>> {
     // TODO: 私密信息不能直接原文传输,需要对密码进行加密
-    return this.http.post<ApiResult<any>>('api/v1/mobileLogin', { params: { username, password } });
+    return this.http.post<ApiResult<any>>('api/v1/mobileLogin', { username, password });
   }
 
   /**
@@ -42,7 +42,7 @@ export class UserService {
    * 获取手机验证码
    */
   getMessageCode(mobile: string) {
-    return this.http.post<ApiResult<any>>('api/v1/mobileRegister', { params: { mobile } });
+    return this.http.get<ApiResult<any>>('api/v1/messageCode', { params: { phone: mobile } });
   }
 
 }

@@ -1,7 +1,7 @@
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import localeZh from '@angular/common/locales/zh-Hans';
-import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouteReuseStrategy } from '@angular/router';
@@ -18,9 +18,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DefaultInterceptor, ParamInterceptor } from './core/interceptors';
+import { StartupService } from "./core/startup/startup.service";
 import { RegisterPageModule } from './layouts/register';
 import { SharedModule } from './shared';
-import {StartupService} from "./core/startup/startup.service";
 
 export function StartupServiceFactory(startupService: StartupService): Function {
   return () => startupService.load();
