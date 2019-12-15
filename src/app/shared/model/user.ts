@@ -5,7 +5,7 @@ export interface User {
   id: string;
   token: string;
   username: string;
-  phone: string;
+  mobile: string;
   realName: string;
   isProxy: boolean;
   appId: string;

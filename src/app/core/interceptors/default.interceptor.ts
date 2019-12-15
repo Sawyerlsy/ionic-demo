@@ -1,20 +1,12 @@
-import {
-  HttpErrorResponse,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
-  HttpResponseBase
-} from '@angular/common/http';
-import {Injectable, Injector} from '@angular/core';
-import {environment} from 'src/environments/environment';
-import {AuthService} from '../services/auth.service';
-import {mergeMap, catchError} from 'rxjs/operators';
-import {Observable, of, throwError} from 'rxjs';
-import {LoadingController, ToastController} from '@ionic/angular';
-import {User} from 'src/app/shared/model/user';
-import {Storage} from '@ionic/storage';
-import {StorageService} from '../services/storage.service';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
 
 /**
  * 通知

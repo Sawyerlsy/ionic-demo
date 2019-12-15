@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Ad, Channel, ImageSlider, Product, SearchCondition, TopMenu } from 'src/app/shared';
 import { ApiResult, HttpOption } from 'src/app/shared/model/http';
-import { User } from 'src/app/shared/model/user';
 import { environment } from 'src/environments/environment';
 import { LogService } from './log.service';
 
@@ -62,18 +61,6 @@ export class RestService {
   }
 
   /**
-   * 用户登录
-   * @param params username and password
-   */
-  login(params: { username: string; password: string; }): Observable<ApiResult<User>> {
-    // TODO: 实现用户登录接口
-    // return this.restPost<ApiResult<User>>('login', '/login');
-    const user = { username: '蝙蝠之殇', mobile: '15813383164' };
-    const apiResult = { code: 200, message: '登入成功', isSuccess: true, data: user };
-    return of(apiResult);
-  }
-
-  /**
    * 根据条件查找符合要求的商品
    * @param condition 搜索条件:包含关键词、价格区间、品牌等
    */
@@ -81,12 +68,10 @@ export class RestService {
     // TODO: 实现搜索商品接口
     // return this.restGet<ApiResult<Product[]>>('findProduct', '/products');
     return this.getProductsByTab('hot').pipe(map(res => {
-      const apiResult = { code: 200, message: '登入成功', isSuccess: true, data: res };
+      const apiResult = { code: 200, message: '登入成功', success: true, data: res };
       return apiResult;
     }));
   }
-
-
 
   /**
    *  get 请求
@@ -115,15 +100,5 @@ export class RestService {
     return of(error);
   }
 
-  test(url: String, json: Object) {
-    var api = url;
-    return new Promise((resove, reject) => {
-      this.http.post('api', json).subscribe((response) => {
-        resove(response);
-      }, (error) => {
-        reject(error);
-      })
-    })
-  }
 }
 

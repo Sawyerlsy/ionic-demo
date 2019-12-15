@@ -1,12 +1,12 @@
-<ion-header >
-  <ion-toolbar >
-    <ion-buttons  slot="start">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
       <ion-button size="small" color="medium" [appGoTo]="'back'">
         <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>登录</ion-title>
-    <ion-buttons  slot="end">
+    <ion-buttons slot="end">
       <ion-button color="medium" [appGoTo]="'home'">
         <ion-icon size="small" slot="icon-only" name="home"></ion-icon>
       </ion-button>
@@ -19,23 +19,25 @@
   <div>
     <ion-img class="login-logo" src="assets/avatars/avatar005.png"></ion-img>
   </div>
-    <form (ngSubmit)="quickLogin()">
-      <ion-list lines='none' class="login-box">
-        <ion-item >
-          <ion-label slot="start" style="margin-right: 1rem;" color="dark">
-            +86
-          </ion-label>
-          <ion-input name="telphone" autocomplete="off" type="text" debounce="300" placeholder="手机号" [(ngModel)]="telphone"></ion-input>
+  <form (ngSubmit)="quickLogin()">
+    <ion-list lines='none' class="login-box">
+      <ion-item>
+        <ion-label slot="start" style="margin-right: 1rem;" color="dark">
+          +86
+        </ion-label>
+        <ion-input name="mobile" autocomplete="off" type="text" debounce="300" placeholder="手机号" [(ngModel)]="mobile">
+        </ion-input>
+      </ion-item>
+
+      <ion-item-group>
+        <ion-item slot="start">
+          <ion-input name="verifyCode" autocomplete="off" type='text' debounce="300" placeholder="验证码"
+            [(ngModel)]="verifyCode"></ion-input>
         </ion-item>
+        <ion-button style="height: 44px;" slot="end" color="danger" expand="full" (click)="getMessageCode()">发送验证码</ion-button>
+      </ion-item-group>
 
-        <ion-item-group >
-          <ion-item  slot="start">
-            <ion-input name="verifyCode" autocomplete="off" type='text' debounce="300" placeholder="验证码" [(ngModel)]="verifyCode"></ion-input>
-          </ion-item>
-          <ion-button style="height: 44px;" slot="end" color="danger" expand="full" (click)="getCode()">发送验证码</ion-button>
-        </ion-item-group>
-
-        <ion-button type="submit" color="danger" expand="full" class="submit">快速登录</ion-button>
-      </ion-list>
-    </form>
+      <ion-button type="submit" color="danger" expand="full" class="submit">快速登录</ion-button>
+    </ion-list>
+  </form>
 </ion-content>

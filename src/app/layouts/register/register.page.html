@@ -42,14 +42,14 @@
           +86
         </ion-label>
         <ion-input autocomplete="off" type="text" debounce="300"
-                   placeholder="手机号" formControlName="phone"></ion-input>
+                   placeholder="手机号" formControlName="mobile"></ion-input>
       </ion-item>
       <div
-          *ngIf="form.get('phone').hasError('required') && form.get('phone').touched"
+          *ngIf="form.get('mobile').hasError('required') && form.get('mobile').touched"
           class="error-message">请输入手机号
       </div>
       <div
-          *ngIf="form.get('phone').hasError('pattern') && form.get('phone').touched"
+          *ngIf="form.get('mobile').hasError('pattern') && form.get('mobile').touched"
           class="error-message">请输入正确的手机号
       </div>
       <ion-item-group>
@@ -58,7 +58,7 @@
                      placeholder="请输入验证码" formControlName="vcode"></ion-input>
         </ion-item>
         <ion-button style="height: 44px;" color="danger" expand="full"
-                    (click)="getCode()">获取验证码
+                    (click)="getMessageCode()">获取验证码
         </ion-button>
       </ion-item-group>
       <div

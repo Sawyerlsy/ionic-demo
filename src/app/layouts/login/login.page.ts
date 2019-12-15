@@ -3,9 +3,8 @@ import { LoadingController, NavController, ToastController } from '@ionic/angula
 import { BaseUI } from 'src/app/core/BaseUI';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EventService, UserEvent } from 'src/app/core/services/event.service';
-import { RestService } from 'src/app/core/services/rest.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { ValidateUtil } from 'src/app/shared/validate';
-import {HttpClient} from "@angular/common/http";
 // import { slideToRight, slideToTop } from '../../shared/animations/animations';
 
 /**
@@ -38,8 +37,7 @@ export class LoginPage extends BaseUI implements OnInit {
     public loadingController: LoadingController,
     private navCtrl: NavController,
     private eventService: EventService,
-    private restService: RestService,
-    private http: HttpClient,
+    private userService: UserService,
     private authService: AuthService) {
     super(loadingController, toastController);
   }
@@ -63,32 +61,28 @@ export class LoginPage extends BaseUI implements OnInit {
       return false;
     }
 
-    // TODO: 私密信息不能直接原文传输,需要对密码进行加密
-    const params = { username: this.username, password: this.password };
     const loading = await this.createLoading();
-    this.http.post('api/v1/mobileLogin', params).subscribe((res: any) => {
+    this.userService.signInByUsername(this.username, this.password).subscribe(res => {
       loading.dismiss();
       if (!res.success) {
+        this.createToast(res.message);
         return;
       }
-      const user = Object.assign(res.data.user, {token: res.data.token});
-      this.authService.authorization(user);
-      this.eventService.broadcast(UserEvent.SIGN_IN, user);
+
+      // 将token放入用户信息中
+      const user = Object.assign(res.data.user, { token: res.data.token });
+      this.authService.authorization(res.data);
+      this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
       this.navCtrl.back();
-    });
-    /*this.restService.login(params).subscribe(res => {
-      loading.dismiss();
-      if (res.isSuccess) {
-        this.authService.authorization(res.data);
-        this.eventService.broadcast(UserEvent.SIGN_IN, res.data);
-        this.navCtrl.back();
-      } else {
-        this.createToast(res.message);
-      }
     }, error => {
+      // 必须在发生异常后关闭loading,否则loading不会消失
       loading.dismiss();
       this.createToast('登录失败,请稍后重试');
-    });*/
+    });
+
+
+
+
   }
 
   /**

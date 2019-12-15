@@ -25,7 +25,7 @@ export class ProductService {
     }
 
     // TODO: 完善搜索逻辑
-    return this.restService.findProduct(condition).pipe(map(res => res.isSuccess ? res.data : []));
+    return this.restService.findProduct(condition).pipe(map(res => res.success ? res.data : []));
   }
 
   /**
@@ -35,7 +35,7 @@ export class ProductService {
   findRecommendProduct(): Observable<Product[]> {
     // TODO: 实现推荐商品逻辑
     const condition = { keyword: 'abc' };
-    return this.restService.findProduct(condition).pipe(map(res => res.isSuccess ? res.data : []));
+    return this.restService.findProduct(condition).pipe(map(res => res.success ? res.data : []));
   }
 
 
