@@ -4,9 +4,6 @@ import { SharedModule } from 'src/app/shared';
 import { HomeDetailComponent } from './home-detail';
 import { HomePage } from './home.page';
 
-
-
-
 const routes: Routes = [
   {
     path: '',

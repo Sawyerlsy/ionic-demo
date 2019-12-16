@@ -64,4 +64,12 @@ export class CategoryPage extends BaseUI implements OnInit {
   async selectedCategory(cateId: string): Promise<void> {
     this.selectedCategory$.next(cateId);
   }
+
+  /**
+   * 根据分类id查找对应的商品信息
+   * @param cateId 商品分类id
+   */
+  findProduct(cateId: string): void {
+
+  }
 }

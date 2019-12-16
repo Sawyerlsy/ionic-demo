@@ -4,11 +4,10 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product, ProductCategory, SearchCondition } from 'src/app/shared';
 import { ApiResult } from 'src/app/shared/model/http';
-import { PageInfo } from 'src/app/shared/model/page-Info';
 import { RestService } from './rest.service';
 
 /**
- * 商品服务
+ * 门店服务
  * @author Sawyer
  */
 @Injectable({
@@ -21,7 +20,7 @@ export class ProductService {
   /**
    * 查找商品
    */
-  findProducts(condition: SearchCondition): Observable<Product[]> {
+  findProduct(condition: SearchCondition): Observable<Product[]> {
     console.log("condition:", condition);
     if (!condition) {
       return of([]);
@@ -66,21 +65,6 @@ export class ProductService {
     const param = { id: parentCateId ? parentCateId : null };
     return this.http.get<ApiResult<ProductCategory[]>>(url, { params: param })
       .pipe(map(res => res.success ? res.data : []));
-  }
-
-  findProduct(page: PageInfo<Product>, condition: SearchCondition): Observable<PageInfo<Product>> {
-    // 门店id
-    const shopId = null;
-    const url = `/api/v1/ums/umsShop/${shopId}/products`;
-    // const param = JSON.stringify(page);
-    const param = { size: page.size + '', current: page.current + '' };
-    return this.http.post<ApiResult<PageInfo<Product>>>(url, condition, {
-      params: param
-    }).pipe(map(res => {
-      console.log('findProduct:', res.data);
-      console.log('findProduct:', res.data.hasNext);
-      return res.success ? res.data : new PageInfo<Product>();
-    }));
   }
 
 }

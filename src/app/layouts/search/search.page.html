@@ -91,7 +91,7 @@
         refreshingText="正在刷新中...">
       </ion-refresher-content>
     </ion-refresher>
-    <app-product-list [products]="products$ | async" [hasMore]="hasMoreProduct"></app-product-list>
+    <app-product-list [products]="products" [hasMore]="!page?true:page.hasNext"></app-product-list>
     <ion-infinite-scroll threshold="100px" (ionInfinite)="findMoreProduct($event)" *ngIf="showProducts">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
       </ion-infinite-scroll-content>

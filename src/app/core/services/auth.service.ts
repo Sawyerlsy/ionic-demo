@@ -22,7 +22,6 @@ export class AuthService {
   async isSignIn(): Promise<boolean> {
     let currentUser = null;
     await this.getSubject().then(val => {
-      console.log(val);
       currentUser = val;
     });
     return null != currentUser;

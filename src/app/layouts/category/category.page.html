@@ -10,8 +10,7 @@
     <div class="left-container">
       <ion-list class="category-list" lines="none">
         <ion-item lines="inset" *ngFor="let category of leftCategoryList$ | async;let i=index;"
-          [ngClass]="{'selected': category.id === (selectedCategory$ | async)}"
-          (click)="selectedCategory(category.id)">
+          [ngClass]="{'selected': category.id === (selectedCategory$ | async)}" (click)="selectedCategory(category.id)">
           <ion-label>{{ category.name }}</ion-label>
         </ion-item>
       </ion-list>
@@ -25,7 +24,7 @@
             <div class="category-detail-item" *ngFor="let item of rightCategoryList$ | async ">
               <div class="item-img">
                 <!-- <img [src]="imgSrc" /> -->
-                <ion-thumbnail>
+                <ion-thumbnail (click)="findProduct(item.id)">
                   <ion-img [src]="imgSrc"></ion-img>
                 </ion-thumbnail>
               </div>
