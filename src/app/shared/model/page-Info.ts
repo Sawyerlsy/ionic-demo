@@ -19,8 +19,8 @@ export class PageInfo<T> {
 
   private _records?: Array<T>;
 
-  public constructor(current: number = 10) {
-    this.current = current;
+  public constructor(size: number = 10) {
+    this._size = size;
   }
 
   public get total(): number {

@@ -22,7 +22,7 @@ export class ProductService {
    * 查找商品
    */
   findProducts(condition: SearchCondition): Observable<Product[]> {
-    console.log("condition:", condition);
+    console.log('condition:', condition);
     if (!condition) {
       return of([]);
     }
@@ -32,7 +32,6 @@ export class ProductService {
   }
 
   /**
-   * 
    * 查找推荐商品
    */
   findRecommendProduct(): Observable<Product[]> {
@@ -77,8 +76,9 @@ export class ProductService {
     return this.http.post<ApiResult<PageInfo<Product>>>(url, condition, {
       params: param
     }).pipe(map(res => {
-      console.log('findProduct:', res.data);
-      console.log('findProduct:', res.data.hasNext);
+      console.log('findProduct res:', res);
+      console.log('findProduct res.data:', res.data);
+      console.log('findProduct res.data.hasNext:', res.data.hasNext);
       return res.success ? res.data : new PageInfo<Product>();
     }));
   }

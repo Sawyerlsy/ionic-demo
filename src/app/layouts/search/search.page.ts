@@ -74,8 +74,6 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
    * 搜索
    */
   search() {
-    console.log('search...');
-
     // 显示商品
     this.showProducts = true;
 
@@ -89,6 +87,8 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
     this.productService.findProduct(this.page, this.condition).subscribe(p => {
       this.page.total = p.total;
       this.products = p.records;
+      console.log('remote page:', p);
+      console.log('local page:', this.page);
     });
   }
 

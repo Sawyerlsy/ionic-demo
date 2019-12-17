@@ -86,13 +86,14 @@
     </div>
   </div>
   <div>
-    <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)" *ngIf="showProducts">
+    <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)" *ngIf="showProducts&&(!page?true:page.total>0)">
       <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
         refreshingText="正在刷新中...">
       </ion-refresher-content>
     </ion-refresher>
-    <app-product-list [products]="products" [hasMore]="!page?true:page.hasNext"></app-product-list>
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="findMoreProduct($event)" *ngIf="showProducts">
+    <app-product-list [products]="products" [hasMore]="!page?true:page.hasNext" #appProductList></app-product-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="findMoreProduct($event)"
+      *ngIf="showProducts&&appProductList.hasMore">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>

@@ -239,6 +239,9 @@ ion-refresher {
     background: $golbalBackground;
 }
 
-.overscroll {
+.inner-scroll,
+.overscroll,
+.scroll-x,
+.scroll-y {
     background: $golbalBackground;
 }
