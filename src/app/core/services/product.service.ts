@@ -91,20 +91,15 @@ export class ProductService {
   /**
    * 获取门店列表
    */
-  async findShop(page: PageInfo<Shop>, condition: Shop): Observable<PageInfo<Shop>> {
-    // TODO: 完善
-    // 获取当前用户的类型
-    /* let url = '';
-    await this.authService.getSubject().then(user => {
-      if (null != user) {
-        url = user.isFactory ? '/api/v1/ums/umsUser/userShops' : '/api/v1/ums/umsUser/customerShops';
-      }else{}
-    }); */
-    const type = 'customerShops';
+  async findShop(page: PageInfo<Shop>, condition: Shop): Promise<PageInfo<Shop>> {
+    // TODO: 处理异常情况
+    // 根据当前用户类型获取访问的地址
+    let currentUser = await this.authService.getSubject();
+    const type = null == currentUser || !currentUser.isFactory ? 'customerShops' : 'userShops';
     const url = `/api/v1/ums/umsUser/${type}`;
-    // const param = JSON.stringify(page);
     const param = { size: page.size + '', current: page.current + '' };
-    return this.http.post<ApiResult<PageInfo<Shop>>>(url, condition, {
+    let result: PageInfo<Shop> = null;
+    let pipe = this.http.post<ApiResult<PageInfo<Shop>>>(url, condition, {
       params: param
     }).pipe(map(res => {
       console.log('findShop res:', res);
@@ -113,6 +108,10 @@ export class ProductService {
       let result = res.success ? res.data : new PageInfo<Shop>();
       return result ? result : new PageInfo<Shop>();
     }));
+
+    return new Promise((resolve, reject) => {
+      pipe.subscribe(data => resolve(data), error => reject(error));
+    });
   }
 
 }

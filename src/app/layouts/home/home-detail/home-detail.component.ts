@@ -159,7 +159,7 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
 
     // 搜索商店
     this.page.current = this.page.current + 1;
-    this.productService.findShop(this.page, null).subscribe(p => {
+    this.productService.findShop(this.page, null).then(p => {
       console.log(p);
       event.target.complete();
       if (!p.records) {
@@ -183,7 +183,7 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
     this.resetPage();
 
     // 门店列表
-    this.productService.findShop(this.page, null).subscribe(p => {
+    this.productService.findShop(this.page, null).then(p => {
       event.target.complete();
       if (!p.records) {
         this.shops = [];
