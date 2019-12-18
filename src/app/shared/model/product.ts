@@ -27,5 +27,5 @@ export interface SearchCondition {
 export interface ProductCategory {
     id: string;
     name: string;
-    imageUrl: string;
+    icon: string;
 }

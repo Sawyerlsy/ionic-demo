@@ -15,7 +15,7 @@
         <app-horizontal-grid>
             <span appGridItem *ngFor="let item of channels$ | async">
                 <img appGridItemImage="2rem" [src]="item.icon" alt="" />
-                <span appGridItemTitle="0.6rem" class="title">{{ item.title }}</span>
+                <span appGridItemTitle="0.6rem" class="title">{{ item.name }}</span>
             </span>
         </app-horizontal-grid>
     </ng-container>

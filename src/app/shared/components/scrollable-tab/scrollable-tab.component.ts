@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface TopMenu {
-  id: number;
+  id: string;
   title: string;
   link: string;
 }

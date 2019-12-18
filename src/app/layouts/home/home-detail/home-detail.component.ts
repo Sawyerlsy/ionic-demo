@@ -7,7 +7,7 @@ import { BaseUI } from 'src/app/core/BaseUI';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { RestService } from 'src/app/core/services/rest.service';
-import { Ad, Channel, ImageSlider, Product } from 'src/app/shared';
+import { Ad, ImageSlider, Product, ProductCategory } from 'src/app/shared';
 import { PageInfo } from 'src/app/shared/model/page-Info';
 import { Shop } from 'src/app/shared/model/shop';
 
@@ -37,7 +37,7 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
 
   imageSliders$: Observable<ImageSlider[]>;
 
-  channels$: Observable<Channel[]>;
+  channels$: Observable<ProductCategory[]>;
 
   ad$: Observable<Ad>;
 
@@ -76,7 +76,6 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
 
     // load imageSlider and channel
     this.imageSliders$ = this.service.getBanners();
-    this.channels$ = this.service.getChannels();
 
     // load ad
     this.ad$ = this.selectedTabLink$.pipe(
@@ -85,8 +84,17 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
       map(ads => ads[0])
     );
 
+    // 根据tab加载商品分类信息
+    this.channels$ = this.selectedTabLink$.pipe(
+      distinctUntilChanged(),
+      switchMap(tab => this.productService.findLastProductCategory(tab).pipe(
+        map(cates => cates && cates.length > 16 ? cates.slice(0, 16) : cates)
+      )
+      )
+    );
+
     // 当选中了门店时,显示推荐商品
-    this.selectedTabLink$.pipe(
+    this.products$ = this.selectedTabLink$.pipe(
       distinctUntilChanged(),
       takeWhile(tab => this.hasSelectedShop()),
       switchMap(tab => this.productService.findRecommendProduct(tab))

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BaseUI } from 'src/app/core/BaseUI';
-import { RestService } from 'src/app/core/services/rest.service';
+import { ProductService } from 'src/app/core/services/product.service';
 import { TopMenu } from 'src/app/shared';
 
 @Component({
@@ -21,7 +22,7 @@ export class HomePage extends BaseUI implements OnInit {
   constructor(
     public toastController: ToastController,
     public loadingController: LoadingController,
-    private service: RestService,
+    private productService: ProductService,
     private activatedRoute: ActivatedRoute,
     private navController: NavController
   ) {
@@ -29,7 +30,16 @@ export class HomePage extends BaseUI implements OnInit {
   }
 
   ngOnInit(): void {
-    this.topMenus$ = this.service.getTabs();
+    this.topMenus$ = this.productService.findFirstProductCategory().pipe(
+      map(cates => {
+        if (!cates) {
+          return [];
+        }
+        let menus: TopMenu[] = [];
+        cates.every(cate => menus.push({ id: cate.id, title: cate.name, link: cate.id }));
+        return menus;
+      })
+    );
     this.selectedTabLink = this.activatedRoute.snapshot.children[0].params.tabLink;
     // 设置顶部tab的滑动选项
     this.homeTabSliderOption = {
