@@ -8,7 +8,7 @@
   <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col [size]="size" *ngFor="let shop of shops">
-        <div class="product-item">
+        <div class="product-item" (click)="selectedItem(shop)">
           <div class="product-image">
             <ion-thumbnail>
               <ion-img [src]="shop?.imageUrl"></ion-img>

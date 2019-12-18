@@ -34,7 +34,9 @@ export class AuthService {
    * 收回权限
    */
   revoke() {
-    return this.storageService.remove(AuthService.STORAGE_USER_KEY);
+    this.storageService.remove(AuthService.STORAGE_USER_KEY);
+    this.storageService.remove(AuthService.STORAGE_SHOP_KEY);
+    return true;
   }
 
   /**
@@ -57,7 +59,7 @@ export class AuthService {
    * @param 门店
    */
   keepShop(shop: Shop) {
-    this.storageService.set(AuthService.STORAGE_SHOP_KEY, shop);
+    return this.storageService.set(AuthService.STORAGE_SHOP_KEY, shop);
   }
 
 }

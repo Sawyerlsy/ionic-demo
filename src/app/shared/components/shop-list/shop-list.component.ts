@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Shop } from '../../model/shop';
 
 @Component({
@@ -18,6 +18,8 @@ export class ShopListComponent implements OnInit {
    * 是否还有更多的数据,默认为false
    */
   @Input() hasMore = true;
+
+  @Output() selected = new EventEmitter();
 
   /**
    * 商品显示方式,默认为水平方向
@@ -42,5 +44,9 @@ export class ShopListComponent implements OnInit {
 
   public get displayMode(): string {
     return this._displayMode;
+  }
+
+  selectedItem(shop: Shop) {
+    this.selected.emit(shop);
   }
 }

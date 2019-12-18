@@ -71,13 +71,20 @@ export class ProductService {
   /**
    * 获取商品列表
    */
-  findProduct(page: PageInfo<Product>, condition: SearchCondition): Observable<PageInfo<Product>> {
+  async findProduct(page: PageInfo<Product>, condition: SearchCondition): Promise<PageInfo<Product>> {
     // 门店id
-    const shopId = null;
+    const currentShop = await this.authService.getCurrentShop();
+    const shopId = null == currentShop ? null : currentShop.id;
+    if (null == shopId) {
+      return new Promise((resolve, reject) => {
+        resolve(new PageInfo());
+      });
+    }
+
     const url = `/api/v1/ums/umsShop/${shopId}/products`;
     // const param = JSON.stringify(page);
     const param = { size: page.size + '', current: page.current + '' };
-    return this.http.post<ApiResult<PageInfo<Product>>>(url, condition, {
+    let pipe = this.http.post<ApiResult<PageInfo<Product>>>(url, condition, {
       params: param
     }).pipe(map(res => {
       console.log('findProduct res:', res);
@@ -86,6 +93,11 @@ export class ProductService {
       let result = res.success ? res.data : new PageInfo<Product>();
       return result ? result : new PageInfo<Product>();
     }));
+
+    return new Promise((resolve, reject) => {
+      pipe.subscribe(data => resolve(data), error => reject(error));
+    });
+
   }
 
   /**

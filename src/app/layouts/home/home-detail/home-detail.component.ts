@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonSlides, LoadingController, ToastController } from '@ionic/angular';
+import { IonSlides, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, switchMap, takeWhile } from 'rxjs/operators';
 import { BaseUI } from 'src/app/core/BaseUI';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { RestService } from 'src/app/core/services/rest.service';
 import { Ad, Channel, ImageSlider, Product } from 'src/app/shared';
@@ -24,7 +25,8 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute, private service: RestService,
     public loadingController: LoadingController, public toastController: ToastController,
-    private productService: ProductService) {
+    private productService: ProductService, private authService: AuthService,
+    private navCtrl: NavController) {
     super(loadingController, toastController);
     if (!this.page) {
       this.page = new PageInfo<Product>();
@@ -203,4 +205,23 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
     this.page.current = 1;
     this.page.total = 0;
   }
+
+  /**
+   * 点击商品
+   */
+  handleSelectedProduct(product: Product) {
+    this.createToast(`选中商品:${product.id}`);
+  }
+
+  /**
+   * 点击门店
+   */
+  handleSelectedShop(shop: Shop) {
+    this.createToast(`选中门店:${shop.id}`);
+    this.authService.keepShop(shop).then(value => {
+      this.navCtrl.navigateRoot(['']);
+    });
+  }
+
+
 }

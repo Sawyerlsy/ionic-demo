@@ -84,7 +84,7 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
     this.condition = { keyword: this.keyword };
 
     // 搜索
-    this.productService.findProduct(this.page, this.condition).subscribe(p => {
+    this.productService.findProduct(this.page, this.condition).then(p => {
       this.page.total = p.total;
       this.products = p.records;
       console.log('remote page:', p);
@@ -104,7 +104,7 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
 
     // 搜索商品
     this.page.current = this.page.current + 1;
-    this.productService.findProduct(this.page, this.condition).subscribe(p => {
+    this.productService.findProduct(this.page, this.condition).then(p => {
       console.log(p);
       event.target.complete();
       if (!p.records) {
@@ -128,7 +128,7 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
     this.resetPage();
 
     // 搜索商品
-    this.productService.findProduct(this.page, this.condition).subscribe(p => {
+    this.productService.findProduct(this.page, this.condition).then(p => {
       event.target.complete();
       if (!p.records) {
         this.products = [];
