@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { Shop } from 'src/app/shared/model/shop';
 import { User } from 'src/app/shared/model/user';
 
 /**
@@ -11,20 +12,10 @@ import { User } from 'src/app/shared/model/user';
 export class AuthService {
 
   public static STORAGE_USER_KEY = 'currentUser';
+  public static STORAGE_SHOP_KEY = 'currentShop';
   public static token = '';
 
   constructor(private storageService: StorageService) {
-  }
-
-  /**
-   * 判断用户是否已经登入
-   */
-  async isSignIn(): Promise<boolean> {
-    let currentUser = null;
-    await this.getSubject().then(val => {
-      currentUser = val;
-    });
-    return null != currentUser;
   }
 
   /**
@@ -52,4 +43,21 @@ export class AuthService {
   getSubject(): Promise<User> {
     return this.storageService.get(AuthService.STORAGE_USER_KEY);
   }
+
+
+  /**
+   * 获取当前门店信息
+   */
+  getCurrentShop(): Promise<Shop> {
+    return this.storageService.get(AuthService.STORAGE_SHOP_KEY);
+  }
+
+  /**
+   * 保存当前门店信息
+   * @param 门店
+   */
+  keepShop(shop: Shop) {
+    this.storageService.set(AuthService.STORAGE_SHOP_KEY, shop);
+  }
+
 }

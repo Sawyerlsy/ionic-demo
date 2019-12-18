@@ -20,7 +20,7 @@ export class StorageService {
     }
 
     /**
-     * 获取与给定键相关联的值，返回 Promise 对象
+     * 获取与给定键相关联的值，返回 对象
      */
     get(key: string): Promise<any> {
         return this.storage.get(key);

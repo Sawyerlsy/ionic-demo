@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CountDownComponent, HorizontalGridComponent, ProductCardComponent, ProductListComponent, ScrollableTabComponent, VerticalGridComponent } from './components';
+import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { AvatarDirective, GoToDirective, GridItemDirective, GridItemImageDirective, GridItemTitleDirective, TagDirective } from './directives';
 import { AgoPipe } from './pipes';
 
@@ -21,7 +22,8 @@ import { AgoPipe } from './pipes';
     AvatarDirective,
     AgoPipe,
     GoToDirective,
-    ProductListComponent
+    ProductListComponent,
+    ShopListComponent
   ],
   imports: [CommonModule, FormsModule, IonicModule],
   exports: [CommonModule, FormsModule, IonicModule,
@@ -37,7 +39,8 @@ import { AgoPipe } from './pipes';
     TagDirective,
     AvatarDirective,
     AgoPipe,
-    GoToDirective
+    GoToDirective,
+    ShopListComponent
   ],
 })
 export class SharedModule { }

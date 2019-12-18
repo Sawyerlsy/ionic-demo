@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { Product, ProductCategory, SearchCondition } from 'src/app/shared';
 import { ApiResult } from 'src/app/shared/model/http';
 import { PageInfo } from 'src/app/shared/model/page-Info';
+import { Shop } from 'src/app/shared/model/shop';
+import { AuthService } from './auth.service';
 import { RestService } from './rest.service';
 
 /**
@@ -16,7 +18,7 @@ import { RestService } from './rest.service';
 })
 export class ProductService {
 
-  constructor(private restService: RestService, private http: HttpClient) { }
+  constructor(private restService: RestService, private http: HttpClient, private authService: AuthService) { }
 
   /**
    * 查找商品
@@ -34,10 +36,9 @@ export class ProductService {
   /**
    * 查找推荐商品
    */
-  findRecommendProduct(): Observable<Product[]> {
+  findRecommendProduct(tab?: string): Observable<Product[]> {
     // TODO: 实现推荐商品逻辑
-    const condition = { keyword: 'abc' };
-    return this.restService.findProduct(condition).pipe(map(res => res.success ? res.data : []));
+    return this.restService.getProductsByTab(tab);
   }
 
 
@@ -67,6 +68,9 @@ export class ProductService {
       .pipe(map(res => res.success ? res.data : []));
   }
 
+  /**
+   * 获取商品列表
+   */
   findProduct(page: PageInfo<Product>, condition: SearchCondition): Observable<PageInfo<Product>> {
     // 门店id
     const shopId = null;
@@ -79,7 +83,35 @@ export class ProductService {
       console.log('findProduct res:', res);
       console.log('findProduct res.data:', res.data);
       console.log('findProduct res.data.hasNext:', res.data.hasNext);
-      return res.success ? res.data : new PageInfo<Product>();
+      let result = res.success ? res.data : new PageInfo<Product>();
+      return result ? result : new PageInfo<Product>();
+    }));
+  }
+
+  /**
+   * 获取门店列表
+   */
+  async findShop(page: PageInfo<Shop>, condition: Shop): Observable<PageInfo<Shop>> {
+    // TODO: 完善
+    // 获取当前用户的类型
+    /* let url = '';
+    await this.authService.getSubject().then(user => {
+      if (null != user) {
+        url = user.isFactory ? '/api/v1/ums/umsUser/userShops' : '/api/v1/ums/umsUser/customerShops';
+      }else{}
+    }); */
+    const type = 'customerShops';
+    const url = `/api/v1/ums/umsUser/${type}`;
+    // const param = JSON.stringify(page);
+    const param = { size: page.size + '', current: page.current + '' };
+    return this.http.post<ApiResult<PageInfo<Shop>>>(url, condition, {
+      params: param
+    }).pipe(map(res => {
+      console.log('findShop res:', res);
+      console.log('findShop res.data:', res.data);
+      // console.log('findShop res.data.hasNext:', res.data.hasNext);
+      let result = res.success ? res.data : new PageInfo<Shop>();
+      return result ? result : new PageInfo<Shop>();
     }));
   }
 

@@ -18,7 +18,8 @@ export class LoginGuardService implements CanActivate {
     }
 
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-        const isSignIn = await this.auth.isSignIn();
+        const currentUser = await this.auth.getSubject();
+        const isSignIn = null != currentUser;
         console.log("isSignIn:", isSignIn);
         if (!isSignIn) {
             // const modal = await this.auth.showLoginModal();

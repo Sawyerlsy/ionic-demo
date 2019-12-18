@@ -14,4 +14,9 @@ export interface User {
   isFactory?: boolean;
   isCustomer?: boolean;
   userStatus?: number;
+
+  /**
+   * 用户选中的门店,可选
+   */
+  shopId?: string;
 }

@@ -1,5 +1,5 @@
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="refreshProduct($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
             refreshingText="正在刷新中...">
         </ion-refresher-content>
@@ -24,9 +24,25 @@
         <img [src]="ad.imageUrl" alt="" class="ad-image" />
     </div>
 
-    <app-product-list [products]="products$ | async" [hasMore]="hasMoreProduct"></app-product-list>
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="findMoreProduct($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
-        </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+
+    <div>
+        <ion-refresher slot="fixed" (ionRefresh)="refresh($event)"
+            *ngIf="!hasSelectedShop()&&(!page?true:page.total>0)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+                refreshingText="正在刷新中...">
+            </ion-refresher-content>
+        </ion-refresher>
+
+        <app-product-list [products]="products$ | async" [hasMore]="false" *ngIf="hasSelectedShop()">
+        </app-product-list>
+        <app-shop-list [shops]="shops" [hasMore]="!page?true:page.hasNext" *ngIf="!hasSelectedShop()" #list>
+        </app-shop-list>
+
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="findMore($event)"
+            *ngIf="!hasSelectedShop()&&(!page?true:page.hasNext)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </div>
+
 </ion-content>
