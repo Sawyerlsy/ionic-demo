@@ -25,6 +25,7 @@ export class AuthService {
     // 存储当前用户对象
     if (user && user.username) {
       this.storageService.set(AuthService.STORAGE_USER_KEY, user);
+      AuthService.token = user.token;
       return true;
     }
     return false;
