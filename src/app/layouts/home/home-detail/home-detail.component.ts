@@ -88,15 +88,19 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
     this.channels$ = this.selectedTabLink$.pipe(
       distinctUntilChanged(),
       switchMap(tab => this.productService.findLastProductCategory(tab).pipe(
-        map(cates => cates && cates.length > 16 ? cates.slice(0, 16) : cates)
-      )
-      )
-    );
+        map(cates => {
+          console.log(cates);
+          cates.forEach((val) => {
+            val.icon = val.icon ? val.icon : 'http://t00img.yangkeduo.com/goods/images/2018-08-01/f13e2dff54d604518a1db4facd89d300.png';
+          });
+          return cates && cates.length > 16 ? cates.slice(0, 16) : cates;
+        })
+      )));
 
     // 当选中了门店时,显示推荐商品
     this.products$ = this.selectedTabLink$.pipe(
       distinctUntilChanged(),
-      takeWhile(tab => this.hasSelectedShop()),
+      takeWhile(() => this.hasSelectedShop()),
       switchMap(tab => this.productService.findRecommendProduct(tab))
     );
 
