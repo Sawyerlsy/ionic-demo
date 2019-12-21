@@ -41,8 +41,6 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
 
   ad$: Observable<Ad>;
 
-
-
   sliderOptions: any;
 
   @ViewChild('banner', { static: true }) baner: IonSlides;
@@ -62,12 +60,16 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
 
   private selectedTabLinkSubscription: Subscription;
 
+  /**
+   * 当前用户选中的门店
+   */
+  currentShop: Shop;
+
   ngOnInit() {
     /* const loading = await this.createLoading();
     setTimeout(() => {
       loading.dismiss();
     }, 2000); */
-
 
     this.selectedTabLink$ = this.route.paramMap.pipe(
       filter(params => params.has('tabLink')),
@@ -158,7 +160,8 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
    * 是否已选中了门店
    */
   hasSelectedShop(): boolean {
-    return null != this.route.snapshot.data.shop;
+    this.currentShop = this.route.snapshot.data.shop;
+    return null != this.currentShop;
   }
 
   /**

@@ -24,8 +24,11 @@
         <img [src]="ad.imageUrl" alt="" class="ad-image" />
     </div> -->
 
-
     <div>
+        <ion-item lines="full" class="recommend-title">
+            <ion-label slot="start">{{ hasSelectedShop()? '商品列表': '门店列表' }}</ion-label>
+            <ion-label slot="end">{{ hasSelectedShop()? currentShop?.name :'' }}</ion-label>
+        </ion-item>
         <ion-refresher slot="fixed" (ionRefresh)="refresh($event)"
             *ngIf="!hasSelectedShop()&&(!page?true:page.total>0)">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
@@ -33,9 +36,11 @@
             </ion-refresher-content>
         </ion-refresher>
 
-        <app-product-list [products]="products$ | async" [hasMore]="false" *ngIf="hasSelectedShop()" (selected)="handleSelectedProduct($event)">
+        <app-product-list [products]="products$ | async" [hasMore]="false" *ngIf="hasSelectedShop()"
+            (selected)="handleSelectedProduct($event)">
         </app-product-list>
-        <app-shop-list [shops]="shops" [hasMore]="!page?true:page.hasNext" *ngIf="!hasSelectedShop()" (selected)="handleSelectedShop($event)">
+        <app-shop-list [shops]="shops" [hasMore]="!page?true:page.hasNext" *ngIf="!hasSelectedShop()"
+            (selected)="handleSelectedShop($event)">
         </app-shop-list>
 
         <ion-infinite-scroll threshold="100px" (ionInfinite)="findMore($event)"
