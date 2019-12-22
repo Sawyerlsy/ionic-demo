@@ -15,9 +15,11 @@ export class ShopListComponent implements OnInit {
   @Input() shops: Shop[];
 
   /**
-   * 是否还有更多的数据,默认为false
+   * 是否显示提示信息
    */
-  @Input() hasMore = true;
+  @Input() showTips = false;
+
+  @Input() tips = '已经全部加载完毕';
 
   @Output() selected = new EventEmitter();
 

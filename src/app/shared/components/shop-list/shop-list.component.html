@@ -28,7 +28,7 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll> -->
-  <ion-item class="ending-tips" *ngIf="!hasMore">
-    <ion-label>已经全部加载完毕</ion-label>
+  <ion-item class="ending-tips" *ngIf="showTips">
+    <ion-label>{{ tips }}</ion-label>
   </ion-item>
 </div>

@@ -29,22 +29,20 @@
             <ion-label slot="start">{{ hasSelectedShop()? '商品列表': '门店列表' }}</ion-label>
             <ion-label slot="end">{{ hasSelectedShop()? currentShop?.name :'' }}</ion-label>
         </ion-item>
-        <ion-refresher slot="fixed" (ionRefresh)="refresh($event)"
-            *ngIf="!hasSelectedShop()&&(!page?true:page.total>0)">
+        <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
                 refreshingText="正在刷新中...">
             </ion-refresher-content>
         </ion-refresher>
 
-        <app-product-list [products]="products$ | async" [hasMore]="false" *ngIf="hasSelectedShop()"
+        <app-product-list [products]="products$ | async" [showTips]="showTips" *ngIf="hasSelectedShop()"
             (selected)="handleSelectedProduct($event)">
         </app-product-list>
-        <app-shop-list [shops]="shops" [hasMore]="!page?true:page.hasNext" *ngIf="!hasSelectedShop()"
+        <app-shop-list [shops]="shops" [showTips]="showTips" *ngIf="!hasSelectedShop()"
             (selected)="handleSelectedShop($event)">
         </app-shop-list>
 
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="findMore($event)"
-            *ngIf="!hasSelectedShop()&&(!page?true:page.hasNext)">
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="findMore($event)">
             <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="努力加载中...">
             </ion-infinite-scroll-content>
         </ion-infinite-scroll>

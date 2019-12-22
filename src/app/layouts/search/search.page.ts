@@ -35,8 +35,9 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
 
   page: PageInfo<Product>;
 
-  private condition: SearchCondition;
+  showTips = false;
 
+  private condition: SearchCondition;
 
   private productSubscription: Subscription;
 
@@ -74,6 +75,9 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
    * 搜索
    */
   search() {
+    // 隐藏提示信息
+    this.showTips = false;
+
     // 显示商品
     this.showProducts = true;
 
@@ -96,9 +100,11 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
    * 上拉加载更多
    */
   findMoreProduct(event) {
-    console.log('homeDetail 上拉加载更多:', event);
+    console.log('search 上拉加载更多:', event);
 
     if (!this.page.hasNext) {
+      event.target.complete();
+      this.showTips = true;
       return;
     }
 
@@ -118,9 +124,11 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
    * 下拉刷新
    */
   refreshProduct(event) {
-    console.log('homeDetail 下拉刷新:', event);
+    console.log('search 下拉刷新:', event);
 
     if (this.page.total <= 0) {
+      event.target.complete();
+      this.showTips = true;
       return;
     }
 
@@ -138,6 +146,9 @@ export class SearchPage extends BaseUI implements OnInit, OnDestroy {
       // 如果已经加载了全部商品
       this.products = p.records;
       this.page.total = p.total;
+      if (!this.page.hasNext) {
+        this.showTips = true;
+      }
     });
   }
 

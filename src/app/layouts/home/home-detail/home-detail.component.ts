@@ -65,6 +65,8 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
    */
   currentShop: Shop;
 
+  showTips = false;
+
   ngOnInit() {
     /* const loading = await this.createLoading();
     setTimeout(() => {
@@ -103,7 +105,10 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
     this.products$ = this.selectedTabLink$.pipe(
       distinctUntilChanged(),
       takeWhile(() => this.hasSelectedShop()),
-      switchMap(tab => this.productService.findRecommendProduct(tab))
+      switchMap(tab => {
+        this.showTips = false;
+        return this.productService.findRecommendProduct(tab);
+      })
     );
 
     // 当没有选中门店时，显示门店信息
@@ -111,6 +116,7 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
       distinctUntilChanged(),
       takeWhile(tab => !this.hasSelectedShop()),
       switchMap(tab => {
+        this.showTips = false;
         return this.productService.findShop(this.page, null);
       })
     ).subscribe(p => {
@@ -171,6 +177,8 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
     console.log('homeDetail 上拉加载更多:', event);
 
     if (!this.page.hasNext) {
+      event.target.complete();
+      this.showTips = true;
       return;
     }
 
@@ -193,6 +201,8 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
     console.log('homeDetail 下拉刷新:', event);
 
     if (this.page.total <= 0) {
+      event.target.complete();
+      this.showTips = true;
       return;
     }
 
@@ -204,12 +214,16 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
       event.target.complete();
       if (!p.records) {
         this.shops = [];
+        this.showTips = true;
         return;
       }
 
       // 如果已经加载了全部商品
       this.shops = p.records;
       this.page.total = p.total;
+      if (!this.page.hasNext) {
+        this.showTips = true;
+      }
     });
   }
 
