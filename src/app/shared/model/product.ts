@@ -17,7 +17,9 @@ export interface Product {
  * @author Sawyer
  */
 export interface SearchCondition {
-    keyword: string;
+    shopId: string;
+    categoryId?: string;
+    keyword?: string;
     baseSort?: string;
 }
 

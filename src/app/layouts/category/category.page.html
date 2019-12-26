@@ -25,7 +25,8 @@
               <div class="item-img">
                 <!-- <img [src]="imgSrc" /> -->
                 <ion-thumbnail (click)="findProduct(item.id)">
-                  <ion-img [src]="imgSrc"></ion-img>
+                  <ion-img *ngIf="item.icon" [src]="item.icon"></ion-img>
+                  <ion-img *ngIf="!item.icon" [src]="imgSrc"></ion-img>
                 </ion-thumbnail>
               </div>
               <div class="item-label"><span>{{ item.name }}</span></div>

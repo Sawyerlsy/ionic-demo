@@ -39,7 +39,7 @@ export class HomePage extends BaseUI implements OnInit {
         cates.every(cate => menus.push({ id: cate.id, title: cate.name, link: cate.id }));
 
         // 在头部插入 热门选项
-        menus.unshift({ id: 'hot', title: '热门', link: 'hot' });
+        // menus.unshift({ id: 'hot', title: '热门', link: 'hot' });
         return menus;
       })
     );

@@ -11,11 +11,11 @@
         <div class="product-item" (click)="selectedItem(product)">
           <div class="product-image">
             <ion-thumbnail>
-              <ion-img [src]="product?.imageUrl"></ion-img>
+              <ion-img [src]="product?.pic"></ion-img>
             </ion-thumbnail>
           </div>
           <div class="product-content">
-            <span class="product-title">{{ product?.title }}</span>
+            <span class="product-title">{{ product?.name }}</span>
             <span class="product-tags"> </span>
             <span class="product-price">门店价 <em>{{ product?.price | currency: 'CNY':'symbol-narrow' }}</em></span>
           </div>

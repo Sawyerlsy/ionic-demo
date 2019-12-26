@@ -30,7 +30,9 @@ export class ProductService {
     }
 
     // TODO: 完善搜索逻辑
-    return this.restService.findProduct(condition).pipe(map(res => res.success ? res.data : []));
+    return this.http.post('api/v1/ums/umsShop/shopProducts',
+        {params: {shopId: condition.shopId, productCateId: condition.categoryId}}).pipe(
+        map((res: any) => res.success ? res.data.records : []));
   }
 
   /**
@@ -84,13 +86,13 @@ export class ProductService {
     const url = `/api/v1/ums/umsShop/${shopId}/products`;
     // const param = JSON.stringify(page);
     const param = { size: page.size + '', current: page.current + '' };
-    let pipe = this.http.post<ApiResult<PageInfo<Product>>>(url, condition, {
+    const pipe = this.http.post<ApiResult<PageInfo<Product>>>(url, condition, {
       params: param
     }).pipe(map(res => {
       console.log('findProduct res:', res);
       console.log('findProduct res.data:', res.data);
       console.log('findProduct res.data.hasNext:', res.data.hasNext);
-      let result = res.success ? res.data : new PageInfo<Product>();
+      const result = res.success ? res.data : new PageInfo<Product>();
       return result ? result : new PageInfo<Product>();
     }));
 
@@ -106,18 +108,18 @@ export class ProductService {
   async findShop(page: PageInfo<Shop>, condition: Shop): Promise<PageInfo<Shop>> {
     // TODO: 处理异常情况
     // 根据当前用户类型获取访问的地址
-    let currentUser = await this.authService.getSubject();
+    const currentUser = await this.authService.getSubject();
     const type = null == currentUser || !currentUser.isFactory ? 'customerShops' : 'userShops';
     const url = `/api/v1/ums/umsUser/${type}`;
     const param = { size: page.size + '', current: page.current + '' };
-    let result: PageInfo<Shop> = null;
-    let pipe = this.http.post<ApiResult<PageInfo<Shop>>>(url, condition, {
+    const result: PageInfo<Shop> = null;
+    const pipe = this.http.post<ApiResult<PageInfo<Shop>>>(url, condition, {
       params: param
     }).pipe(map(res => {
       console.log('findShop res:', res);
       console.log('findShop res.data:', res.data);
       // console.log('findShop res.data.hasNext:', res.data.hasNext);
-      let result = res.success ? res.data : new PageInfo<Shop>();
+      const result = res.success ? res.data : new PageInfo<Shop>();
       return result ? result : new PageInfo<Shop>();
     }));
 

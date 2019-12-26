@@ -12,7 +12,8 @@ export class ProductListComponent implements OnInit {
   /**
    * 商品列表
    */
-  @Input() products: Product[];
+  // @Input() products: Product[];
+  @Input() products: any[];
 
   /**
    * 是否显示提示信息

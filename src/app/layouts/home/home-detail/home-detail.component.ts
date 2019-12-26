@@ -107,7 +107,8 @@ export class HomeDetailComponent extends BaseUI implements OnInit, OnDestroy {
       takeWhile(() => this.hasSelectedShop()),
       switchMap(tab => {
         this.showTips = false;
-        return this.productService.findRecommendProduct(tab);
+        // return this.productService.findRecommendProduct(tab);
+        return this.productService.findProducts({categoryId: tab, shopId: this.route.snapshot.data.shop});
       })
     );
 
